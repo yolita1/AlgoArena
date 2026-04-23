@@ -1,0 +1,49 @@
+{
+  "id": "build_tree",
+  "title": "Build Tree from Preorder + Inorder",
+  "description": "Given the preorder and inorder traversals of a binary tree (with distinct values), reconstruct it and output the postorder traversal.",
+  "inputSpec": "First line: n. Second line: preorder (n integers). Third line: inorder (n integers).",
+  "outputSpec": "The postorder traversal: n integers space-separated.",
+  "constraints": "1 ≤ n ≤ 1000, all values distinct",
+  "exampleInput": "5\n3 9 20 15 7\n9 3 15 20 7",
+  "exampleOutput": "9 15 7 20 3",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "5\n3 9 20 15 7\n9 3 15 20 7",
+      "output": "9 15 7 20 3"
+    },
+    {
+      "input": "1\n1\n1",
+      "output": "1"
+    },
+    {
+      "input": "3\n1 2 3\n2 1 3",
+      "output": "2 3 1",
+      "hidden": true
+    },
+    {
+      "input": "4\n4 2 1 3\n1 2 3 4",
+      "output": "1 3 2 4",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 45,
+      "code": "n=int(input())\npre=list(map(int,input().split()))\nino=list(map(int,input().split()))\ndef build(pre,ino):\n    if not pre:return []\n    root=pre[0]\n    idx=ino.index(root)\n    l=build(pre[1:1+idx],ino[:idx])\n    r=build(pre[1+idx:],ino[idx+1:])\n    return l+r+[root]\nprint(*build(pre,ino))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 75,
+      "code": "#include<stdio.h>\nint pre[1001],ino[1001],pos[1001],k=0;\nvoid build(int pl,int pr,int il,int ir){if(pl>pr)return;int root=pre[pl];int m=il;while(ino[m]!=root)m++;build(pl+1,pl+m-il,il,m-1);build(pl+m-il+1,pr,m+1,ir);pos[k++]=root;}\nint main(){int n;scanf(\"%d\",&n);for(int i=0;i<n;i++)scanf(\"%d\",&pre[i]);for(int i=0;i<n;i++)scanf(\"%d\",&ino[i]);build(0,n-1,0,n-1);for(int i=0;i<n;i++)printf(\"%d%c\",pos[i],i<n-1?' ':'\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 110,
+      "code": ""
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_pgcd_recursif",
+  "title": "PGCD par l'algorithme d'Euclide",
+  "description": "Calculer le PGCD de deux entiers a et b avec l'algorithme d'Euclide :\n\nSi b = 0 → résultat = a\nSinon → pgcd(a, b) = pgcd(b, a mod b)",
+  "inputSpec": "Deux entiers positifs a et b.",
+  "outputSpec": "pgcd(a, b).",
+  "constraints": "1 ≤ a, b ≤ 10^9",
+  "exampleInput": "48 18",
+  "exampleOutput": "6",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "48 18",
+      "output": "6"
+    },
+    {
+      "input": "100 75",
+      "output": "25"
+    },
+    {
+      "input": "7 13",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "0 5",
+      "output": "5",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 15,
+      "code": "a,b=map(int,input().split())\ndef pgcd(a,b):return a if b==0 else pgcd(b,a%b)\nprint(pgcd(a,b))"
+    }
+  ]
+}

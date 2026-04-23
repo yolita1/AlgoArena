@@ -1,0 +1,49 @@
+{
+  "id": "bfs_shortest_path",
+  "title": "BFS — Shortest Path in Grid",
+  "description": "Given an n×m grid where '.' is walkable and '#' is a wall, find the shortest path length from S to E. Each step moves to an adjacent cell (4-directional).",
+  "inputSpec": "First line: n and m. Then n lines of m characters each. S=start, E=end.",
+  "outputSpec": "The minimum number of steps from S to E, or -1 if no path exists.",
+  "constraints": "2 ≤ n,m ≤ 100",
+  "exampleInput": "3 5\nS....\n#.###\n....E",
+  "exampleOutput": "7",
+  "difficulty": "post_bac",
+  "category": "graphs",
+  "tests": [
+    {
+      "input": "3 5\nS....\n#.###\n....E",
+      "output": "7"
+    },
+    {
+      "input": "2 2\nS#\n#E",
+      "output": "-1"
+    },
+    {
+      "input": "1 2\nSE",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "3 3\nS..\n###\n..E",
+      "output": "-1",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 55,
+      "code": "from collections import deque\nn,m=map(int,input().split())\ngrid=[input() for _ in range(n)]\nsr=sc=er=ec=0\nfor i in range(n):\n    for j in range(m):\n        if grid[i][j]=='S':sr,sc=i,j\n        if grid[i][j]=='E':er,ec=i,j\ndist=[[-1]*m for _ in range(n)]\ndist[sr][sc]=0\nq=deque([(sr,sc)])\nwhile q:\n    r,c=q.popleft()\n    for dr,dc in[(-1,0),(1,0),(0,-1),(0,1)]:\n        nr,nc=r+dr,c+dc\n        if 0<=nr<n and 0<=nc<m and grid[nr][nc]!='#' and dist[nr][nc]==-1:\n            dist[nr][nc]=dist[r][c]+1\n            q.append((nr,nc))\nprint(dist[er][ec])"
+    },
+    {
+      "language": "c",
+      "submitDelay": 100,
+      "code": "#include<stdio.h>\n#include<string.h>\nchar g[101][102];\nint d[101][101];\nint qr[10001],qc[10001];\nint main(){int n,m;scanf(\"%d %d\",&n,&m);for(int i=0;i<n;i++)scanf(\"%s\",g[i]);memset(d,-1,sizeof(d));int sr,sc,er,ec;for(int i=0;i<n;i++)for(int j=0;j<m;j++){if(g[i][j]=='S'){sr=i;sc=j;}if(g[i][j]=='E'){er=i;ec=j;}}d[sr][sc]=0;int front=0,back=0;qr[back]=sr;qc[back++]=sc;int dr[]={-1,1,0,0},dc[]={0,0,-1,1};while(front<back){int r=qr[front],c=qc[front++];for(int k=0;k<4;k++){int nr=r+dr[k],nc=c+dc[k];if(nr>=0&&nr<n&&nc>=0&&nc<m&&g[nr][nc]!='#'&&d[nr][nc]==-1){d[nr][nc]=d[r][c]+1;qr[back]=nr;qc[back++]=nc;}}}printf(\"%d\\n\",d[er][ec]);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 150,
+      "code": ""
+    }
+  ]
+}

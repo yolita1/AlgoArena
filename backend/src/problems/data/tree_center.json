@@ -1,0 +1,49 @@
+{
+  "id": "tree_center",
+  "title": "Binary Tree Center",
+  "description": "The center of a tree is the node(s) minimizing the maximum distance to any other node. It lies at the middle of a diameter path:\n- If the diameter has an ODD number of nodes → 1 center\n- If the diameter has an EVEN number of nodes → 2 centers\n\nGiven a tree in level-order, output the value(s) of the center node(s).",
+  "inputSpec": "A single line: level-order encoding (integers and 'N').",
+  "outputSpec": "If 1 center: 'Single X'. If 2 centers: 'Double X Y'.",
+  "constraints": "1 ≤ nodes ≤ 1000",
+  "exampleInput": "1 2 3 N N 4 N N N 5",
+  "exampleOutput": "Single 4",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "1 2 3 N N 4 N N N 5",
+      "output": "Single 4"
+    },
+    {
+      "input": "1 2 3",
+      "output": "Double 1 2"
+    },
+    {
+      "input": "1",
+      "output": "Single 1",
+      "hidden": true
+    },
+    {
+      "input": "1 2 N 3 N 4 N",
+      "output": "Double 3 4",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 75,
+      "code": "import sys\nsys.setrecursionlimit(20000)\nvals=input().split()\nn=len(vals)\nleft=[-1]*n;right=[-1]*n\nfor i in range(n):\n    l,r=2*i+1,2*i+2\n    if l<n and vals[l]!='N':left[i]=l\n    if r<n and vals[r]!='N':right[i]=r\n\ndef diam(i):\n    if i<0 or vals[i]=='N':return 0,[],0,[]\n    hl,hpl,dl,dpl=diam(left[i])\n    hr,hpr,dr,dpr=diam(right[i])\n    h,hp=(hl+1,[vals[i]]+hpl) if hl>=hr else (hr+1,[vals[i]]+hpr)\n    cand=hl+hr+1\n    lp=list(reversed(hpl)) if left[i]>=0 else []\n    rp=hpr if right[i]>=0 else []\n    cp=lp+[vals[i]]+rp\n    if cand>=dl and cand>=dr:bd,bp=cand,cp\n    elif dl>=dr:bd,bp=dl,dpl\n    else:bd,bp=dr,dpr\n    return h,hp,bd,bp\n\n_,_,d,dp=diam(0)\nmid=(d-1)//2\nif d%2==1:print('Single',dp[mid])\nelse:print('Double',dp[mid],dp[mid+1])"
+    },
+    {
+      "language": "c",
+      "submitDelay": 130,
+      "code": ""
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 150,
+      "code": ""
+    }
+  ]
+}

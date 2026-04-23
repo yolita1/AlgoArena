@@ -1,0 +1,49 @@
+{
+  "id": "graph_bipartite",
+  "title": "Is the Graph Bipartite?",
+  "description": "Given an undirected graph, determine if it is bipartite (2-colorable): nodes can be split into two groups such that every edge connects nodes from different groups.",
+  "inputSpec": "First line: n and m. Next m lines: u v (undirected edge).",
+  "outputSpec": "YES if bipartite, NO otherwise.",
+  "constraints": "1 ≤ n ≤ 1000, 0 ≤ m ≤ 5000",
+  "exampleInput": "4 4\n0 1\n1 2\n2 3\n3 0",
+  "exampleOutput": "YES",
+  "difficulty": "post_bac",
+  "category": "graphs",
+  "tests": [
+    {
+      "input": "4 4\n0 1\n1 2\n2 3\n3 0",
+      "output": "YES"
+    },
+    {
+      "input": "3 3\n0 1\n1 2\n2 0",
+      "output": "NO"
+    },
+    {
+      "input": "2 1\n0 1",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "4 5\n0 1\n1 2\n2 3\n3 0\n0 2",
+      "output": "NO",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 40,
+      "code": "from collections import deque\nn,m=map(int,input().split())\ng=[[] for _ in range(n)]\nfor _ in range(m):\n    u,v=map(int,input().split())\n    g[u].append(v);g[v].append(u)\ncol=[-1]*n\ndef bfs(s):\n    col[s]=0;q=deque([s])\n    while q:\n        u=q.popleft()\n        for v in g[u]:\n            if col[v]==-1:col[v]=1-col[u];q.append(v)\n            elif col[v]==col[u]:return False\n    return True\nprint('YES' if all(col[i]!=-1 or bfs(i) for i in range(n)) else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 72,
+      "code": "#include<stdio.h>\n#include<string.h>\nint adj[1001][5001],deg[1001],col[1001],q[1001];\nint bfs(int s){col[s]=0;int f=0,b=0;q[b++]=s;while(f<b){int u=q[f++];for(int i=0;i<deg[u];i++){int v=adj[u][i];if(col[v]==-1){col[v]=1-col[u];q[b++]=v;}else if(col[v]==col[u])return 0;}}return 1;}\nint main(){int n,m;scanf(\"%d %d\",&n,&m);for(int i=0;i<m;i++){int u,v;scanf(\"%d %d\",&u,&v);adj[u][deg[u]++]=v;adj[v][deg[v]++]=u;}memset(col,-1,sizeof(col));for(int i=0;i<n;i++)if(col[i]==-1&&!bfs(i)){puts(\"NO\");return 0;}puts(\"YES\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 110,
+      "code": ""
+    }
+  ]
+}

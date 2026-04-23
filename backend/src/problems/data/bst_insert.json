@@ -1,0 +1,49 @@
+{
+  "id": "bst_insert",
+  "title": "BST Insertion — Infix Output",
+  "description": "Start with an empty BST. Insert n integers one by one (duplicates are ignored). Output the in-order (sorted) traversal of the final BST.",
+  "inputSpec": "First line: n. Second line: n integers to insert in order.",
+  "outputSpec": "The in-order traversal: n integers sorted in non-decreasing order, space-separated.",
+  "constraints": "1 ≤ n ≤ 1000, values in [-10^6, 10^6]",
+  "exampleInput": "5\n3 1 4 1 5",
+  "exampleOutput": "1 3 4 5",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "5\n3 1 4 1 5",
+      "output": "1 3 4 5"
+    },
+    {
+      "input": "3\n2 1 3",
+      "output": "1 2 3"
+    },
+    {
+      "input": "1\n42",
+      "output": "42",
+      "hidden": true
+    },
+    {
+      "input": "5\n5 4 3 2 1",
+      "output": "1 2 3 4 5",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 22,
+      "code": "n=int(input())\na=list(dict.fromkeys(map(int,input().split())))\na.sort()\nprint(*a)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 40,
+      "code": "#include<stdio.h>\n#include<stdlib.h>\nint cmp(const void*a,const void*b){return*(int*)a-*(int*)b;}\nint a[1001];int n2=0;\nint main(){int n;scanf(\"%d\",&n);for(int i=0;i<n;i++){int x;scanf(\"%d\",&x);int found=0;for(int j=0;j<n2;j++)if(a[j]==x){found=1;break;}if(!found)a[n2++]=x;}qsort(a,n2,sizeof(int),cmp);for(int i=0;i<n2;i++)printf(\"%d%c\",a[i],i<n2-1?' ':'\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 70,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in let module S=Set.Make(Int) in let s=Array.fold_left(fun s x->S.add x s)S.empty a in S.iter(fun x->Printf.printf\"%d \" x) s;print_newline()"
+    }
+  ]
+}

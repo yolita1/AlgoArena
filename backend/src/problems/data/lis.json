@@ -1,0 +1,59 @@
+{
+  "id": "lis",
+  "title": "Longest Increasing Subsequence",
+  "description": "Find the length of the longest strictly increasing subsequence of an array. Optimize for O(n log n) to win in Optimization mode.",
+  "inputSpec": "First line: n. Second line: n integers.",
+  "outputSpec": "The length of the LIS.",
+  "constraints": "1 ≤ n ≤ 100000, −10⁹ ≤ a[i] ≤ 10⁹",
+  "exampleInput": "8\n3 1 4 1 5 9 2 6",
+  "exampleOutput": "4",
+  "difficulty": "post_bac",
+  "category": "dynamic_programming",
+  "tests": [
+    {
+      "input": "8\n3 1 4 1 5 9 2 6",
+      "output": "4"
+    },
+    {
+      "input": "1\n1",
+      "output": "1"
+    },
+    {
+      "input": "5\n5 4 3 2 1",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "5\n1 2 3 4 5",
+      "output": "5",
+      "hidden": true
+    },
+    {
+      "input": "6\n1 3 2 4 3 5",
+      "output": "4",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 40,
+      "code": "import bisect\nn=int(input())\na=list(map(int,input().split()))\ntails=[]\nfor x in a:\n    i=bisect.bisect_left(tails,x)\n    if i==len(tails):tails.append(x)\n    else:tails[i]=x\nprint(len(tails))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 70,
+      "code": "#include<stdio.h>\nint tails[100001],sz=0;\nint lower_bound(int*a,int n,int x){int lo=0,hi=n;while(lo<hi){int m=(lo+hi)/2;if(a[m]<x)lo=m+1;else hi=m;}return lo;}\nint main(){int n;scanf(\"%d\",&n);int x;for(int i=0;i<n;i++){scanf(\"%d\",&x);int pos=lower_bound(tails,sz,x);tails[pos]=x;if(pos==sz)sz++;}printf(\"%d\\n\",sz);}"
+    },
+    {
+      "language": "c",
+      "submitDelay": 250,
+      "code": "// Naive O(n²)\n#include<stdio.h>\nint dp[100001];\nint main(){int n;scanf(\"%d\",&n);int a[100001];for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);int ans=1;for(int i=0;i<n;i++){dp[i]=1;for(int j=0;j<i;j++)if(a[j]<a[i]&&dp[j]+1>dp[i])dp[i]=dp[j]+1;if(dp[i]>ans)ans=dp[i];}printf(\"%d\\n\",ans);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 100,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in let tails=Array.make n 0 in let sz=ref 0 in let lb x=let lo=ref 0 and hi=ref !sz in while !lo < !hi do let m=(!lo + !hi)/2 in if tails.(m)<x then lo:=m+1 else hi:=m done;!lo in Array.iter(fun x->let pos=lb x in tails.(pos)<-x;if pos = !sz then incr sz)a;Printf.printf\"%d\\n\" !sz"
+    }
+  ]
+}

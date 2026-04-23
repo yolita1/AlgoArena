@@ -1,0 +1,45 @@
+{
+  "id": "graph_dfs_reach",
+  "title": "Graph DFS — Reachability",
+  "description": "Given an undirected graph and a source node s, find all nodes reachable from s using DFS. Output them in increasing order.",
+  "inputSpec": "First line: n (nodes, 0-indexed) and m (edges). Next m lines: u v. Last line: s.",
+  "outputSpec": "All nodes reachable from s in increasing order, space-separated.",
+  "constraints": "1 ≤ n ≤ 1000, 0 ≤ m ≤ 5000",
+  "exampleInput": "5 4\n0 1\n1 2\n3 4\n0 2\n0",
+  "exampleOutput": "0 1 2",
+  "difficulty": "post_bac",
+  "category": "graphs",
+  "tests": [
+    {
+      "input": "5 4\n0 1\n1 2\n3 4\n0 2\n0",
+      "output": "0 1 2"
+    },
+    {
+      "input": "3 0\n0",
+      "output": "0",
+      "hidden": true
+    },
+    {
+      "input": "4 3\n0 1\n1 2\n2 3\n0",
+      "output": "0 1 2 3",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 35,
+      "code": "import sys\nsys.setrecursionlimit(10000)\nn,m=map(int,input().split())\ng=[[] for _ in range(n)]\nfor _ in range(m):\n    u,v=map(int,input().split())\n    g[u].append(v);g[v].append(u)\ns=int(input())\nvis=[False]*n\ndef dfs(u):\n    vis[u]=True\n    for v in g[u]:\n        if not vis[v]:dfs(v)\ndfs(s)\nprint(*[i for i in range(n) if vis[i]])"
+    },
+    {
+      "language": "c",
+      "submitDelay": 62,
+      "code": "#include<stdio.h>\n#include<string.h>\nint adj[1001][5001],deg[1001],vis[1001];\nvoid dfs(int u){vis[u]=1;for(int i=0;i<deg[u];i++){int v=adj[u][i];if(!vis[v])dfs(v);}}\nint main(){int n,m;scanf(\"%d %d\",&n,&m);memset(deg,0,sizeof(deg));for(int i=0;i<m;i++){int u,v;scanf(\"%d %d\",&u,&v);adj[u][deg[u]++]=v;adj[v][deg[v]++]=u;}int s;scanf(\"%d\",&s);dfs(s);int f=1;for(int i=0;i<n;i++)if(vis[i]){if(!f)printf(\" \");printf(\"%d\",i);f=0;}printf(\"\\n\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 110,
+      "code": ""
+    }
+  ]
+}

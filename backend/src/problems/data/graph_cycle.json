@@ -1,0 +1,49 @@
+{
+  "id": "graph_cycle",
+  "title": "Cycle Detection in Directed Graph",
+  "description": "Given a directed graph, determine if it contains a cycle.",
+  "inputSpec": "First line: n (nodes, 0-indexed) and m (edges). Next m lines: u v (directed edge u→v).",
+  "outputSpec": "YES if there is a cycle, NO otherwise.",
+  "constraints": "1 ≤ n ≤ 1000, 0 ≤ m ≤ 5000",
+  "exampleInput": "4 4\n0 1\n1 2\n2 3\n3 1",
+  "exampleOutput": "YES",
+  "difficulty": "post_bac",
+  "category": "graphs",
+  "tests": [
+    {
+      "input": "4 4\n0 1\n1 2\n2 3\n3 1",
+      "output": "YES"
+    },
+    {
+      "input": "3 2\n0 1\n1 2",
+      "output": "NO"
+    },
+    {
+      "input": "1 0\n",
+      "output": "NO",
+      "hidden": true
+    },
+    {
+      "input": "3 3\n0 1\n1 2\n2 0",
+      "output": "YES",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 40,
+      "code": "import sys\nsys.setrecursionlimit(10000)\nn,m=map(int,input().split())\ng=[[] for _ in range(n)]\nfor _ in range(m):\n    u,v=map(int,input().split())\n    g[u].append(v)\ncolor=[0]*n  # 0=white,1=gray,2=black\ndef dfs(u):\n    color[u]=1\n    for v in g[u]:\n        if color[v]==1:return True\n        if color[v]==0 and dfs(v):return True\n    color[u]=2;return False\nprint('YES' if any(color[i]==0 and dfs(i) for i in range(n)) else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 75,
+      "code": "#include<stdio.h>\nint adj[1001][5001],deg[1001],col[1001];\nint dfs(int u){col[u]=1;for(int i=0;i<deg[u];i++){int v=adj[u][i];if(col[v]==1)return 1;if(col[v]==0&&dfs(v))return 1;}col[u]=2;return 0;}\nint main(){int n,m;scanf(\"%d %d\",&n,&m);for(int i=0;i<m;i++){int u,v;scanf(\"%d %d\",&u,&v);adj[u][deg[u]++]=v;}for(int i=0;i<n;i++)if(!col[i]&&dfs(i)){puts(\"YES\");return 0;}puts(\"NO\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 115,
+      "code": ""
+    }
+  ]
+}

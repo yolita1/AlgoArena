@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_cesar",
+  "title": "Chiffrement de César",
+  "description": "Le chiffrement de César décale chaque lettre dans l'alphabet.\nAvec un décalage de 3 : a→d, b→e, z→c.\n\nLes espaces ne sont pas modifiés.",
+  "inputSpec": "Première ligne : le décalage (0 à 25).\nDeuxième ligne : le message en minuscules.",
+  "outputSpec": "Le message chiffré.",
+  "constraints": "0 ≤ décalage ≤ 25, longueur ≤ 1000",
+  "exampleInput": "3\nbonjour monde",
+  "exampleOutput": "erqmrxu prqgh",
+  "difficulty": "bac_nsi",
+  "category": "strings",
+  "tests": [
+    {
+      "input": "3\nbonjour monde",
+      "output": "erqmrxu prqgh"
+    },
+    {
+      "input": "0\nhello",
+      "output": "hello"
+    },
+    {
+      "input": "1\nz",
+      "output": "a",
+      "hidden": true
+    },
+    {
+      "input": "13\nbonjour",
+      "output": "obawbhe",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "d=int(input())\nm=input()\nres=''\nfor c in m:\n    if c==' ':res+=' '\n    else:res+=chr((ord(c)-ord('a')+d)%26+ord('a'))\nprint(res)"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "full_bt_leaves",
+  "title": "Arbre binaire entier : feuilles = internes + 1",
+  "description": "Un arbre binaire entier est un arbre où chaque nœud interne a exactement 2 fils. Dans un tel arbre à n nœuds internes, il y a toujours n+1 feuilles.\n\nVérifie cette propriété : étant donné un arbre binaire entier en level-order, affiche le nombre de feuilles et le nombre de nœuds internes.",
+  "inputSpec": "Une ligne : encodage level-order d'un arbre binaire entier (valeurs entières, 'N' absent).",
+  "outputSpec": "Deux entiers : nombre de feuilles et nombre de nœuds internes.",
+  "constraints": "1 ≤ nœuds ≤ 1000",
+  "exampleInput": "1 2 3 4 5 6 7",
+  "exampleOutput": "4 3",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "1 2 3 4 5 6 7",
+      "output": "4 3"
+    },
+    {
+      "input": "42",
+      "output": "1 0"
+    },
+    {
+      "input": "1 2 3 N N 4 5",
+      "output": "3 2",
+      "hidden": true
+    },
+    {
+      "input": "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15",
+      "output": "8 7",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 28,
+      "code": "vals=input().split()\nn=len(vals)\nleaves=internals=0\nfor i,v in enumerate(vals):\n    if v=='N':continue\n    l,r=2*i+1,2*i+2\n    has_child=(l<n and vals[l]!='N') or (r<n and vals[r]!='N')\n    if has_child:internals+=1\n    else:leaves+=1\nprint(leaves,internals)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 48,
+      "code": "#include<stdio.h>\n#include<string.h>\nchar v[1001][12];int n=0;\nint main(){while(scanf(\"%s\",v[n])==1)n++;int l=0,in=0;for(int i=0;i<n;i++){if(strcmp(v[i],\"N\")==0)continue;int lc=2*i+1<n&&strcmp(v[2*i+1],\"N\")!=0,rc=2*i+2<n&&strcmp(v[2*i+2],\"N\")!=0;if(lc||rc)in++;else l++;}printf(\"%d %d\\n\",l,in);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 80,
+      "code": ""
+    }
+  ]
+}

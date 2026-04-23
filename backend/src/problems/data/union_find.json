@@ -1,0 +1,49 @@
+{
+  "id": "union_find",
+  "title": "Union-Find — Connected Components",
+  "description": "Given n nodes and m undirected edges, determine how many connected components the graph has.",
+  "inputSpec": "First line: n and m. Next m lines: u v (undirected edge).",
+  "outputSpec": "The number of connected components.",
+  "constraints": "1 ≤ n ≤ 100000, 0 ≤ m ≤ 100000",
+  "exampleInput": "5 3\n0 1\n1 2\n3 4",
+  "exampleOutput": "2",
+  "difficulty": "post_bac",
+  "category": "graphs",
+  "tests": [
+    {
+      "input": "5 3\n0 1\n1 2\n3 4",
+      "output": "2"
+    },
+    {
+      "input": "4 0\n",
+      "output": "4"
+    },
+    {
+      "input": "3 3\n0 1\n1 2\n0 2",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "1 0\n",
+      "output": "1",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 45,
+      "code": "n,m=map(int,input().split())\np=list(range(n))\ndef find(x):\n    while p[x]!=x:p[x]=p[p[x]];x=p[x]\n    return x\nfor _ in range(m):\n    u,v=map(int,input().split())\n    pu,pv=find(u),find(v)\n    if pu!=pv:p[pu]=pv\nprint(sum(1 for i in range(n) if find(i)==i))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 80,
+      "code": "#include<stdio.h>\nint p[100001];\nint find(int x){return p[x]==x?x:p[x]=find(p[x]);}\nint main(){int n,m;scanf(\"%d %d\",&n,&m);for(int i=0;i<n;i++)p[i]=i;for(int i=0;i<m;i++){int u,v;scanf(\"%d %d\",&u,&v);int pu=find(u),pv=find(v);if(pu!=pv)p[pu]=pv;}int cnt=0;for(int i=0;i<n;i++)if(find(i)==i)cnt++;printf(\"%d\\n\",cnt);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 120,
+      "code": "let p=Array.init 100001 Fun.id\nlet rec find x=if p.(x)=x then x else(p.(x)<-find p.(x);p.(x))\nlet()=let n=Scanf.scanf\" %d\" Fun.id and m=Scanf.scanf\" %d\" Fun.id in let p2=Array.init n Fun.id in ignore p2;Array.iteri(fun i _->p.(i)<-i)(Array.make n 0);for _=1 to m do let u=Scanf.scanf\" %d\" Fun.id and v=Scanf.scanf\" %d\" Fun.id in let pu=find u and pv=find v in if pu<>pv then p.(pu)<-pv done;let cnt=ref 0 in for i=0 to n-1 do if find i=i then incr cnt done;Printf.printf\"%d\\n\" !cnt"
+    }
+  ]
+}

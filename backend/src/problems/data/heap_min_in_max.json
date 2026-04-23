@@ -1,0 +1,49 @@
+{
+  "id": "heap_min_in_max",
+  "title": "Min Element in Max-Heap",
+  "description": "The minimum element of a max-heap is always a leaf. Leaves are at indices ⌊n/2⌋+1 to n (1-indexed). Find and return the minimum element of the heap without sorting.",
+  "inputSpec": "First line: n. Second line: n integers forming a valid max-heap (1-indexed).",
+  "outputSpec": "The minimum element.",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "7\n10 9 8 7 6 5 4",
+  "exampleOutput": "4",
+  "difficulty": "post_bac",
+  "category": "data_structures",
+  "tests": [
+    {
+      "input": "7\n10 9 8 7 6 5 4",
+      "output": "4"
+    },
+    {
+      "input": "1\n42",
+      "output": "42"
+    },
+    {
+      "input": "10\n20 15 18 10 12 14 16 5 8 9",
+      "output": "5",
+      "hidden": true
+    },
+    {
+      "input": "5\n100 50 80 30 40",
+      "output": "30",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "n=int(input())\na=list(map(int,input().split()))\nprint(min(a[n//2:]))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 35,
+      "code": "#include<stdio.h>\nint a[100002];\nint main(){int n;scanf(\"%d\",&n);for(int i=1;i<=n;i++)scanf(\"%d\",&a[i]);int m=a[n/2+1];for(int i=n/2+2;i<=n;i++)if(a[i]<m)m=a[i];printf(\"%d\\n\",m);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 70,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.make(n+1)0 in for i=1 to n do a.(i)<-Scanf.scanf\" %d\" Fun.id done;let m=ref a.(n/2+1) in for i=n/2+2 to n do if a.(i)< !m then m:=a.(i) done;Printf.printf\"%d\\n\" !m"
+    }
+  ]
+}

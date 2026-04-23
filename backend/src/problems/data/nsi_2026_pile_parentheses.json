@@ -1,0 +1,44 @@
+{
+  "id": "nsi_2026_pile_parentheses",
+  "title": "Parenthèses bien formées",
+  "description": "Vérifier qu'une expression avec des parenthèses (), crochets [] et accolades {} est bien équilibrée.\n\nUtiliser une pile (liste Python) : empiler à l'ouverture, dépiler et vérifier à la fermeture.",
+  "inputSpec": "Une chaîne de caractères.",
+  "outputSpec": "True si bien formée, False sinon.",
+  "constraints": "Longueur ≤ 10000",
+  "exampleInput": "({[]})",
+  "exampleOutput": "True",
+  "difficulty": "bac_nsi",
+  "category": "data_structures",
+  "tests": [
+    {
+      "input": "({[]})",
+      "output": "True"
+    },
+    {
+      "input": "([)]",
+      "output": "False"
+    },
+    {
+      "input": "",
+      "output": "True",
+      "hidden": true
+    },
+    {
+      "input": "((()))",
+      "output": "True",
+      "hidden": true
+    },
+    {
+      "input": "{[}]",
+      "output": "False",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "s=input()\npile=[]\npairs={'(':')','[':']','{':'}'}\nfor c in s:\n    if c in pairs:pile.append(pairs[c])\n    elif pile and c==pile[-1]:pile.pop()\n    elif c in ')]}':print(False);exit()\nprint(not pile)"
+    }
+  ]
+}

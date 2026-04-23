@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  # ── Backend ────────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile.backend
+    ports:
+      - "3001:3001"
+    environment:
+      PORT:       "3001"
+      CLIENT_URL: "http://localhost:5173"
+    volumes:
+      # Bind-mount a shared temp dir so the backend can write code files
+      - runner-temp:/app/temp
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 10s
+      timeout:  5s
+      retries:  3
+
+  # ── Frontend (static build served by nginx) ────────────────────────────────
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.frontend
+      args:
+        VITE_BACKEND_URL: "http://localhost:3001"
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  runner-temp:

@@ -1,0 +1,49 @@
+{
+  "id": "list_reverse",
+  "title": "Inverser une liste",
+  "description": "Étant donné une liste de n entiers, affiche-la dans l'ordre inverse.",
+  "inputSpec": "Première ligne : n. Deuxième ligne : n entiers.",
+  "outputSpec": "La liste inversée, séparée par des espaces.",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "5\n1 2 3 4 5",
+  "exampleOutput": "5 4 3 2 1",
+  "difficulty": "pre_bac",
+  "category": "data_structures",
+  "tests": [
+    {
+      "input": "5\n1 2 3 4 5",
+      "output": "5 4 3 2 1"
+    },
+    {
+      "input": "1\n42",
+      "output": "42"
+    },
+    {
+      "input": "3\n7 7 7",
+      "output": "7 7 7",
+      "hidden": true
+    },
+    {
+      "input": "4\n1 2 3 4",
+      "output": "4 3 2 1",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 12,
+      "code": "n=int(input())\na=list(map(int,input().split()))\nprint(*reversed(a))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 22,
+      "code": "#include<stdio.h>\nint a[100001];\nint main(){int n;scanf(\"%d\",&n);for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);for(int i=n-1;i>=0;i--)printf(\"%d%c\",a[i],i?\" \"[0]:\"\\n\"[0]);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 50,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in for i=n-1 downto 0 do Printf.printf\"%d%c\" a.(i)(if i>0 then ' ' else '\\n') done"
+    }
+  ]
+}

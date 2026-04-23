@@ -1,0 +1,54 @@
+{
+  "id": "selection_sort",
+  "title": "Sort — Selection Sort",
+  "description": "Sort an array of n integers in non-decreasing order using selection sort (or any sort — the result is what matters).",
+  "inputSpec": "First line: n. Second line: n integers.",
+  "outputSpec": "The sorted array on one line, space-separated.",
+  "constraints": "1 ≤ n ≤ 1000, −10⁴ ≤ a[i] ≤ 10⁴",
+  "exampleInput": "5\n5 3 1 4 2",
+  "exampleOutput": "1 2 3 4 5",
+  "difficulty": "pre_bac",
+  "category": "sorting",
+  "tests": [
+    {
+      "input": "5\n5 3 1 4 2",
+      "output": "1 2 3 4 5"
+    },
+    {
+      "input": "1\n42",
+      "output": "42"
+    },
+    {
+      "input": "4\n4 3 2 1",
+      "output": "1 2 3 4",
+      "hidden": true
+    },
+    {
+      "input": "6\n-3 0 -1 2 1 -2",
+      "output": "-3 -2 -1 0 1 2",
+      "hidden": true
+    },
+    {
+      "input": "3\n7 7 7",
+      "output": "7 7 7",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 25,
+      "code": "n=int(input())\na=list(map(int,input().split()))\na.sort()\nprint(*a)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 50,
+      "code": "#include<stdio.h>\nvoid swap(int*a,int*b){int t=*a;*a=*b;*b=t;}\nint main(){int n;scanf(\"%d\",&n);int a[1001];for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);for(int i=0;i<n-1;i++){int m=i;for(int j=i+1;j<n;j++)if(a[j]<a[m])m=j;swap(&a[i],&a[m]);}for(int i=0;i<n;i++)printf(\"%d%c\",a[i],i<n-1?' ':'\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 110,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in Array.sort compare a;Array.iter(fun x->Printf.printf\"%d \" x) a;print_newline()"
+    }
+  ]
+}

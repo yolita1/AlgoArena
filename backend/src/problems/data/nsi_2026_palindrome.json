@@ -1,0 +1,44 @@
+{
+  "id": "nsi_2026_palindrome",
+  "title": "Palindrome",
+  "description": "Un palindrome se lit pareil dans les deux sens.\n\n`kayak`, `radar`, `elle` sont des palindromes.",
+  "inputSpec": "Un mot en minuscules (sans espaces).",
+  "outputSpec": "True si palindrome, False sinon.",
+  "constraints": "1 ≤ longueur ≤ 10000",
+  "exampleInput": "kayak",
+  "exampleOutput": "True",
+  "difficulty": "bac_nsi",
+  "category": "strings",
+  "tests": [
+    {
+      "input": "kayak",
+      "output": "True"
+    },
+    {
+      "input": "bonjour",
+      "output": "False"
+    },
+    {
+      "input": "a",
+      "output": "True",
+      "hidden": true
+    },
+    {
+      "input": "abba",
+      "output": "True",
+      "hidden": true
+    },
+    {
+      "input": "abcd",
+      "output": "False",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 14,
+      "code": "s=input()\nprint(s==s[::-1])"
+    }
+  ]
+}

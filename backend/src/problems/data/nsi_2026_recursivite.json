@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_recursivite",
+  "title": "Tours de Hanoï — nombre de coups",
+  "description": "Les tours de Hanoï avec n disques nécessitent exactement 2ⁿ − 1 déplacements.\n\nTrouver ce nombre sans simulation (formule directe ou récursion).",
+  "inputSpec": "Un entier n.",
+  "outputSpec": "2ⁿ − 1",
+  "constraints": "1 ≤ n ≤ 30",
+  "exampleInput": "3",
+  "exampleOutput": "7",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "3",
+      "output": "7"
+    },
+    {
+      "input": "1",
+      "output": "1"
+    },
+    {
+      "input": "10",
+      "output": "1023",
+      "hidden": true
+    },
+    {
+      "input": "20",
+      "output": "1048575",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 15,
+      "code": "n=int(input())\nprint(2**n-1)"
+    }
+  ]
+}

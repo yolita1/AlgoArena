@@ -1,0 +1,49 @@
+{
+  "id": "heap_percolate_down",
+  "title": "Heap — Fix After Replace Root",
+  "description": "In a max-heap (1-indexed array), after replacing the root with the last element and decreasing size by 1, apply percolate_down to restore the heap property. Output the resulting heap.\n\nRecall: always swap with the LARGEST child.",
+  "inputSpec": "First line: n. Second line: n integers forming a valid max-heap EXCEPT possibly position 1 (the root has been replaced by t[n+1] and size is now n).",
+  "outputSpec": "The restored max-heap: n integers, space-separated.",
+  "constraints": "1 ≤ n ≤ 10000",
+  "exampleInput": "6\n4 9 8 7 6 5",
+  "exampleOutput": "9 7 8 4 6 5",
+  "difficulty": "post_bac",
+  "category": "data_structures",
+  "tests": [
+    {
+      "input": "6\n4 9 8 7 6 5",
+      "output": "9 7 8 4 6 5"
+    },
+    {
+      "input": "1\n42",
+      "output": "42"
+    },
+    {
+      "input": "4\n1 10 8 7",
+      "output": "10 7 8 1",
+      "hidden": true
+    },
+    {
+      "input": "7\n1 9 8 7 6 5 4",
+      "output": "9 7 8 1 6 5 4",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 35,
+      "code": "n=int(input())\na=[0]+list(map(int,input().split()))\nk=1\nwhile 2*k<=n:\n    j=2*k\n    if j+1<=n and a[j+1]>a[j]:j+=1\n    if a[k]>=a[j]:break\n    a[k],a[j]=a[j],a[k];k=j\nprint(*a[1:])"
+    },
+    {
+      "language": "c",
+      "submitDelay": 55,
+      "code": "#include<stdio.h>\nint a[10002],n;\nvoid down(int k){while(2*k<=n){int j=2*k;if(j+1<=n&&a[j+1]>a[j])j++;if(a[k]>=a[j])break;int t=a[k];a[k]=a[j];a[j]=t;k=j;}}\nint main(){scanf(\"%d\",&n);for(int i=1;i<=n;i++)scanf(\"%d\",&a[i]);down(1);for(int i=1;i<=n;i++)printf(\"%d%c\",a[i],i<n?' ':'\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": "let n=ref 0\nlet a=Array.make 10002 0\nlet down k=let k=ref k in while 2* !k<= !n do let j=ref(2* !k) in if 2* !k+1<= !n&&a.(2* !k+1)>a.(2* !k) then j:=2* !k+1;if a.(!k)>=a.(!j) then k:= !n+1 else begin let t=a.(!k) in a.(!k)<-a.(!j);a.(!j)<-t;k:= !j end done\nlet()=n:=Scanf.scanf\" %d\" Fun.id;for i=1 to !n do a.(i)<-Scanf.scanf\" %d\" Fun.id done;down 1;for i=1 to !n do Printf.printf\"%d%c\" a.(i)(if i< !n then ' ' else '\\n') done"
+    }
+  ]
+}

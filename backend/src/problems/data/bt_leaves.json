@@ -1,0 +1,49 @@
+{
+  "id": "bt_leaves",
+  "title": "Count Leaves",
+  "description": "Given a binary tree (parent array), count the number of leaves (nodes with no children).",
+  "inputSpec": "First line: n. Second line: parent array (−1 = root).",
+  "outputSpec": "The number of leaf nodes.",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "7\n-1 0 0 1 1 2 2",
+  "exampleOutput": "4",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "7\n-1 0 0 1 1 2 2",
+      "output": "4"
+    },
+    {
+      "input": "1\n-1",
+      "output": "1"
+    },
+    {
+      "input": "5\n-1 0 1 2 3",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "3\n-1 0 0",
+      "output": "2",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "n=int(input())\np=list(map(int,input().split()))\nhas_child=[False]*n\nfor i,par in enumerate(p):\n    if par>=0:has_child[par]=True\nprint(sum(1 for i in range(n) if not has_child[i]))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 35,
+      "code": "#include<stdio.h>\nint main(){int n;scanf(\"%d\",&n);int hc[100001]={0};for(int i=0;i<n;i++){int p;scanf(\"%d\",&p);if(p>=0)hc[p]=1;}int c=0;for(int i=0;i<n;i++)c+=!hc[i];printf(\"%d\\n\",c);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 70,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let p=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in let hc=Array.make n false in Array.iter(fun x->if x>=0 then hc.(x)<-true)p;Printf.printf\"%d\\n\"(Array.fold_left(fun a x->if not x then a+1 else a)0 hc)"
+    }
+  ]
+}

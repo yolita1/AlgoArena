@@ -1,0 +1,49 @@
+{
+  "id": "min_in_maxheap",
+  "title": "Find Minimum in Max-Heap",
+  "description": "Given a max-heap of n integers (1-indexed array), find the minimum element. The minimum is always a leaf. First leaf is at index floor(n/2)+1.",
+  "inputSpec": "First line: n. Second line: n integers (max-heap array, 1-indexed).",
+  "outputSpec": "The minimum element.",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "7\n10 9 8 7 6 5 4",
+  "exampleOutput": "4",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "7\n10 9 8 7 6 5 4",
+      "output": "4"
+    },
+    {
+      "input": "1\n5",
+      "output": "5"
+    },
+    {
+      "input": "5\n15 10 14 9 7",
+      "output": "7",
+      "hidden": true
+    },
+    {
+      "input": "3\n10 5 8",
+      "output": "5",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 22,
+      "code": "n=int(input())\na=list(map(int,input().split()))\n# leaves start at index n//2 (0-indexed: n//2 to n-1)\nprint(min(a[n//2:]))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 38,
+      "code": "#include<stdio.h>\nint a[100002];\nint main(){int n;scanf(\"%d\",&n);for(int i=1;i<=n;i++)scanf(\"%d\",&a[i]);int m=a[n/2+1];for(int i=n/2+2;i<=n;i++)if(a[i]<m)m=a[i];printf(\"%d\\n\",m);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 75,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.init(n+1)(fun _->Scanf.scanf\" %d\" Fun.id) in let m=ref a.(n/2+1) in for i=n/2+2 to n do if a.(i)< !m then m:=a.(i) done;Printf.printf\"%d\\n\" !m"
+    }
+  ]
+}

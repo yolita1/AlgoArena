@@ -1,0 +1,55 @@
+{
+  "id": "fix_bubble_sort",
+  "title": "Fix the Bubble Sort",
+  "description": "The following code tries to sort an array using bubble sort, but has a bug — the array is not fully sorted for some inputs. Find and fix it.",
+  "inputSpec": "First line: n. Second line: n integers.",
+  "outputSpec": "The sorted array, space-separated.",
+  "constraints": "1 ≤ n ≤ 500",
+  "exampleInput": "4\n3 1 4 2",
+  "exampleOutput": "1 2 3 4",
+  "difficulty": "pre_bac",
+  "category": "sorting",
+  "tests": [
+    {
+      "input": "4\n3 1 4 2",
+      "output": "1 2 3 4"
+    },
+    {
+      "input": "5\n5 4 3 2 1",
+      "output": "1 2 3 4 5"
+    },
+    {
+      "input": "1\n7",
+      "output": "7",
+      "hidden": true
+    },
+    {
+      "input": "3\n2 2 1",
+      "output": "1 2 2",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 35,
+      "code": "n=int(input())\na=list(map(int,input().split()))\nfor i in range(n):\n    for j in range(n-1-i):\n        if a[j]>a[j+1]:a[j],a[j+1]=a[j+1],a[j]\nprint(*a)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 60,
+      "code": "#include<stdio.h>\nint main(){int n;scanf(\"%d\",&n);int a[501];for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);for(int i=0;i<n;i++)for(int j=0;j<n-1-i;j++)if(a[j]>a[j+1]){int t=a[j];a[j]=a[j+1];a[j+1]=t;}for(int i=0;i<n;i++)printf(\"%d%c\",a[i],i<n-1?' ':'\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 120,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in for i=0 to n-2 do for j=0 to n-2-i do if a.(j)>a.(j+1) then(let t=a.(j) in a.(j)<-a.(j+1);a.(j+1)<-t)done done;Array.iter(fun x->Printf.printf\"%d \" x)a;print_newline()"
+    }
+  ],
+  "isBuggyCode": true,
+  "buggyCode": {
+    "python": "n = int(input())\na = list(map(int, input().split()))\nfor i in range(n):\n    for j in range(n - 1):  # BUG: should be n-1-i\n        if a[j] > a[j+1]:\n            a[j], a[j+1] = a[j+1], a[j]\nprint(*a)",
+    "c": "#include <stdio.h>\nint main() {\n    int n; scanf(\"%d\", &n);\n    int a[501];\n    for (int i = 0; i < n; i++) scanf(\"%d\", &a[i]);\n    for (int i = 0; i < n; i++)\n        for (int j = 0; j < n - 1; j++)  // BUG: should be n-1-i\n            if (a[j] > a[j+1]) { int t=a[j]; a[j]=a[j+1]; a[j+1]=t; }\n    for (int i = 0; i < n; i++) printf(\"%d%c\", a[i], i<n-1?' ':'\\n');\n}",
+    "ocaml": ""
+  }
+}

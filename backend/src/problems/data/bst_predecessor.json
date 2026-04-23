@@ -1,0 +1,40 @@
+{
+  "id": "bst_predecessor",
+  "title": "Prédécesseur dans un ABR",
+  "description": "Dans un ABR (arbre binaire de recherche), le prédécesseur d'une valeur x est le plus grand élément strictement inférieur à x dans l'ABR.\n\nL'ABR est donné par son parcours infix (séquence triée). Pour q requêtes, affiche le prédécesseur de x (ou 'AUCUN' si x est le minimum ou absent).",
+  "inputSpec": "Première ligne : n et q. Deuxième ligne : n entiers triés (parcours infix de l'ABR). Ensuite q entiers (les requêtes).",
+  "outputSpec": "q lignes : le prédécesseur ou 'AUCUN'.",
+  "constraints": "1 ≤ n,q ≤ 100000, valeurs distinctes",
+  "exampleInput": "5 3\n1 3 5 7 9\n5\n1\n6",
+  "exampleOutput": "3\nAUCUN\nAUCUN",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "5 3\n1 3 5 7 9\n5\n1\n6",
+      "output": "3\nAUCUN\nAUCUN"
+    },
+    {
+      "input": "3 2\n2 4 6\n4\n2",
+      "output": "2\nAUCUN",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 35,
+      "code": "import bisect\nn,q=map(int,input().split())\na=list(map(int,input().split()))\nfor _ in range(q):\n    x=int(input())\n    i=bisect.bisect_left(a,x)\n    if i==0 or i>=len(a)+1:print('AUCUN')\n    elif i<len(a) and a[i]==x and i>0:print(a[i-1])\n    elif a[i-1]<x:print(a[i-1])\n    else:print('AUCUN')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 60,
+      "code": "#include<stdio.h>\nint a[100001],n;\nint main(){int q;scanf(\"%d %d\",&n,&q);for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);while(q--){int x;scanf(\"%d\",&x);int lo=0,hi=n-1,pred=-1;while(lo<=hi){int m=(lo+hi)/2;if(a[m]<x){pred=a[m];lo=m+1;}else hi=m-1;}if(pred<0)puts(\"AUCUN\");else printf(\"%d\\n\",pred);}}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": ""
+    }
+  ]
+}

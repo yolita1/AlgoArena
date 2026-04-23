@@ -1,0 +1,54 @@
+{
+  "id": "merge_sort",
+  "title": "Merge Sort — Count Inversions",
+  "description": "Given an array of n integers, count the number of inversions: pairs (i,j) with i<j and a[i]>a[j]. Use a merge-sort based approach for O(n log n).",
+  "inputSpec": "First line: n. Second line: n integers.",
+  "outputSpec": "The number of inversions.",
+  "constraints": "1 ≤ n ≤ 100000, 1 ≤ a[i] ≤ 10⁹",
+  "exampleInput": "5\n5 4 3 2 1",
+  "exampleOutput": "10",
+  "difficulty": "post_bac",
+  "category": "sorting",
+  "tests": [
+    {
+      "input": "5\n5 4 3 2 1",
+      "output": "10"
+    },
+    {
+      "input": "4\n1 2 3 4",
+      "output": "0"
+    },
+    {
+      "input": "3\n3 1 2",
+      "output": "2",
+      "hidden": true
+    },
+    {
+      "input": "1\n42",
+      "output": "0",
+      "hidden": true
+    },
+    {
+      "input": "6\n6 5 4 3 2 1",
+      "output": "15",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 50,
+      "code": "def merge_count(a):\n    if len(a)<=1:return a,0\n    mid=len(a)//2\n    L,lc=merge_count(a[:mid])\n    R,rc=merge_count(a[mid:])\n    merged,inv=[],lc+rc\n    i=j=0\n    while i<len(L) and j<len(R):\n        if L[i]<=R[j]:merged.append(L[i]);i+=1\n        else:merged.append(R[j]);inv+=len(L)-i;j+=1\n    merged+=L[i:]+R[j:]\n    return merged,inv\nn=int(input())\na=list(map(int,input().split()))\n_,c=merge_count(a)\nprint(c)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 90,
+      "code": "#include<stdio.h>\nlong long cnt=0;\nvoid merge(int*a,int lo,int mid,int hi){int tmp[100001],i=lo,j=mid,k=0;while(i<mid&&j<hi){if(a[i]<=a[j])tmp[k++]=a[i++];else{tmp[k++]=a[j++];cnt+=mid-i;}}while(i<mid)tmp[k++]=a[i++];while(j<hi)tmp[k++]=a[j++];for(int x=0;x<k;x++)a[lo+x]=tmp[x];}\nvoid msort(int*a,int lo,int hi){if(hi-lo<2)return;int mid=(lo+hi)/2;msort(a,lo,mid);msort(a,mid,hi);merge(a,lo,mid,hi);}\nint main(){int n;scanf(\"%d\",&n);int a[100001];for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);msort(a,0,n);printf(\"%lld\\n\",cnt);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 160,
+      "code": "let cnt=ref 0\nlet rec merge_count a=match a with|[]|[_]->a|_->let mid=List.length a/2 in let l=merge_count(List.filteri(fun i _->i<mid) a) and r=merge_count(List.filteri(fun i _->i>=mid) a) in let rec merge l r=match l,r with|[],r->r|l,[]->l|x::lt,y::rt->if x<=y then x::merge lt r else(cnt:= !cnt+List.length l;y::merge l rt) in merge l r\nlet()=let n=Scanf.scanf\" %d\" Fun.id in let a=List.init n(fun _->Scanf.scanf\" %d\" Fun.id) in ignore(merge_count a);Printf.printf\"%d\\n\" !cnt"
+    }
+  ]
+}

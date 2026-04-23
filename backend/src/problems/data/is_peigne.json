@@ -1,0 +1,53 @@
+{
+  "id": "is_peigne",
+  "title": "Comb Tree — Classification",
+  "description": "A binary tree (type: Feuille of int | Noeud of arbre * arbre) is a 'peigne' if all internal nodes (except possibly the root) have at least one leaf child.\nA 'peigne strict' also requires the root to have at least one leaf child.\nA 'peigne rangé' requires the RIGHT child of every internal node to be a leaf.\n\nGiven a binary tree in level-order (integers for leaves, 'I' for internal node, 'N' for null), classify it.\n\nNote: an internal node has two children; a leaf has none.",
+  "inputSpec": "A single line: level-order. Leaves are integers, internal nodes are 'I', null = 'N'.",
+  "outputSpec": "RANGE if peigne rangé, STRICT if peigne strict (but not rangé), PEIGNE if peigne (but not strict), OTHER.",
+  "constraints": "1 ≤ nodes ≤ 1000",
+  "exampleInput": "I I 3 I 2 N N 5 4",
+  "exampleOutput": "RANGE",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "I I 3 I 2 N N 5 4",
+      "output": "RANGE"
+    },
+    {
+      "input": "I 1 I 2 3",
+      "output": "STRICT"
+    },
+    {
+      "input": "I I I 1 2 3 4",
+      "output": "PEIGNE"
+    },
+    {
+      "input": "I I I I 1 2 3 4 5",
+      "output": "OTHER",
+      "hidden": true
+    },
+    {
+      "input": "1",
+      "output": "RANGE",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 65,
+      "code": "vals=input().split()\nn=len(vals)\ndef is_leaf(i):return i<n and vals[i]!='I' and vals[i]!='N'\ndef is_null(i):return i>=n or vals[i]=='N'\ndef is_internal(i):return i<n and vals[i]=='I'\n\ndef check():\n    # BFS check\n    from collections import deque\n    q=deque([0])\n    is_range=True;is_strict=True;is_peigne_ok=True\n    root_has_leaf=False\n    while q:\n        i=q.popleft()\n        if is_null(i) or is_leaf(i):continue\n        l,r=2*i+1,2*i+2\n        lf=is_leaf(l);rf=is_leaf(r)\n        if i==0:\n            if not(lf or rf):is_strict=False\n            root_has_leaf=lf or rf\n        else:\n            if not(lf or rf):is_peigne_ok=False\n        if not rf:is_range=False\n        if is_internal(l):q.append(l)\n        if is_internal(r):q.append(r)\n    if not is_peigne_ok:return 'OTHER'\n    if is_range:return 'RANGE'\n    if is_strict:return 'STRICT'\n    return 'PEIGNE'\nprint(check())"
+    },
+    {
+      "language": "c",
+      "submitDelay": 110,
+      "code": ""
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 140,
+      "code": ""
+    }
+  ]
+}

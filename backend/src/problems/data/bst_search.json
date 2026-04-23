@@ -1,0 +1,40 @@
+{
+  "id": "bst_search",
+  "title": "BST Search — Multiple Queries",
+  "description": "Given a sorted array representing the infix of a balanced BST, answer q queries: for each query value x, print YES if x is in the BST, NO otherwise. Use binary search.",
+  "inputSpec": "First line: n and q. Second line: n sorted integers. Next q lines: a query integer.",
+  "outputSpec": "q lines: YES or NO.",
+  "constraints": "1 ≤ n,q ≤ 100000",
+  "exampleInput": "5 3\n1 3 5 7 9\n3\n4\n9",
+  "exampleOutput": "YES\nNO\nYES",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "5 3\n1 3 5 7 9\n3\n4\n9",
+      "output": "YES\nNO\nYES"
+    },
+    {
+      "input": "3 2\n1 2 3\n2\n5",
+      "output": "YES\nNO",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 25,
+      "code": "import bisect\nn,q=map(int,input().split())\na=list(map(int,input().split()))\nfor _ in range(q):\n    x=int(input())\n    i=bisect.bisect_left(a,x)\n    print('YES' if i<n and a[i]==x else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 45,
+      "code": "#include<stdio.h>\nint a[100001];\nint bs(int n,int x){int l=0,r=n-1;while(l<=r){int m=(l+r)/2;if(a[m]==x)return 1;if(a[m]<x)l=m+1;else r=m-1;}return 0;}\nint main(){int n,q;scanf(\"%d %d\",&n,&q);for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);while(q--){int x;scanf(\"%d\",&x);puts(bs(n,x)?\"YES\":\"NO\");}}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 85,
+      "code": "let a=Array.make 100001 0\nlet bs n x=let l=ref 0 and r=ref(n-1) and f=ref false in while !l <= !r&&not !f do let m=(!l + !r)/2 in if a.(m)=x then f:=true else if a.(m)<x then l:=m+1 else r:=m-1 done;!f\nlet()=let n=Scanf.scanf\" %d\" Fun.id and q=Scanf.scanf\" %d\" Fun.id in for i=0 to n-1 do a.(i)<-Scanf.scanf\" %d\" Fun.id done;for _=1 to q do let x=Scanf.scanf\" %d\" Fun.id in print_endline(if bs n x then\"YES\" else\"NO\") done"
+    }
+  ]
+}

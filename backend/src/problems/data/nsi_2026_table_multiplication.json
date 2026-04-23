@@ -1,0 +1,34 @@
+{
+  "id": "nsi_2026_table_multiplication",
+  "title": "NSI 2026 — Table de multiplication",
+  "description": "Générer une table de multiplication n×n. La case (i,j) contient i*j (i et j de 1 à n).\n\nAfficher chaque ligne de la table, les valeurs séparées par des espaces.",
+  "inputSpec": "Un entier n.",
+  "outputSpec": "n lignes : la table de multiplication de 1×1 à n×n.",
+  "constraints": "1 ≤ n ≤ 20",
+  "exampleInput": "3",
+  "exampleOutput": "1 2 3\n2 4 6\n3 6 9",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "3",
+      "output": "1 2 3\n2 4 6\n3 6 9"
+    },
+    {
+      "input": "1",
+      "output": "1"
+    },
+    {
+      "input": "2",
+      "output": "1 2\n2 4",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 15,
+      "code": "n=int(input())\nfor i in range(1,n+1):\n    print(*[i*j for j in range(1,n+1)])"
+    }
+  ]
+}

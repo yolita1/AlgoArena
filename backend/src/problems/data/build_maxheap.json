@@ -1,0 +1,49 @@
+{
+  "id": "build_maxheap",
+  "title": "Build a Max-Heap",
+  "description": "Given an array of n integers, transform it into a max-heap using the standard bottom-up heapify algorithm (O(n)). Output the resulting array.",
+  "inputSpec": "First line: n. Second line: n integers.",
+  "outputSpec": "The max-heap array: n integers, space-separated.",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "5\n3 1 6 5 2",
+  "exampleOutput": "6 5 3 1 2",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "5\n3 1 6 5 2",
+      "output": "6 5 3 1 2"
+    },
+    {
+      "input": "1\n42",
+      "output": "42"
+    },
+    {
+      "input": "4\n1 2 3 4",
+      "output": "4 2 3 1",
+      "hidden": true
+    },
+    {
+      "input": "7\n7 6 5 4 3 2 1",
+      "output": "7 6 5 4 3 2 1",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 28,
+      "code": "n=int(input())\na=[0]+list(map(int,input().split()))\ndef down(i):\n    while 2*i<=n:\n        j=2*i\n        if j+1<=n and a[j+1]>a[j]:j+=1\n        if a[i]>=a[j]:break\n        a[i],a[j]=a[j],a[i];i=j\nfor i in range(n//2,0,-1):down(i)\nprint(*a[1:])"
+    },
+    {
+      "language": "c",
+      "submitDelay": 50,
+      "code": "#include<stdio.h>\nint a[100002],n;\nvoid down(int i){while(2*i<=n){int j=2*i;if(j+1<=n&&a[j+1]>a[j])j++;if(a[i]>=a[j])break;int t=a[i];a[i]=a[j];a[j]=t;i=j;}}\nint main(){scanf(\"%d\",&n);for(int i=1;i<=n;i++)scanf(\"%d\",&a[i]);for(int i=n/2;i>=1;i--)down(i);for(int i=1;i<=n;i++)printf(\"%d%c\",a[i],i<n?' ':'\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 95,
+      "code": "let n=ref 0\nlet a=Array.make 100002 0\nlet rec down i=if 2*i<= !n then begin let j=ref(2*i) in if 2*i+1<= !n&&a.(2*i+1)>a.(2*i) then j:=2*i+1;if a.(i)<a.(!j) then begin let t=a.(i) in a.(i)<-a.(!j);a.(!j)<-t;down !j end end\nlet()=n:=Scanf.scanf\" %d\" Fun.id;for i=1 to !n do a.(i)<-Scanf.scanf\" %d\" Fun.id done;for i= !n/2 downto 1 do down i done;for i=1 to !n do Printf.printf\"%d%c\" a.(i)(if i< !n then ' ' else '\\n') done"
+    }
+  ]
+}

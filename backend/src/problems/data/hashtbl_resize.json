@@ -1,0 +1,49 @@
+{
+  "id": "hashtbl_resize",
+  "title": "Hash Table — When to Resize",
+  "description": "A hash table starts with capacity c and resizes (doubles capacity) when the load factor (size / capacity) exceeds 2/3. Given n insertions (all unique keys), determine:\n- How many resizes happen\n- The final capacity after all insertions",
+  "inputSpec": "First line: initial capacity c. Second line: n (number of insertions).",
+  "outputSpec": "Two integers: number of resizes and final capacity.",
+  "constraints": "1 ≤ c ≤ 1000, 1 ≤ n ≤ 100000",
+  "exampleInput": "3\n10",
+  "exampleOutput": "3 24",
+  "difficulty": "post_bac",
+  "category": "data_structures",
+  "tests": [
+    {
+      "input": "3\n10",
+      "output": "3 24"
+    },
+    {
+      "input": "10\n5",
+      "output": "0 10"
+    },
+    {
+      "input": "1\n1",
+      "output": "1 2",
+      "hidden": true
+    },
+    {
+      "input": "6\n100",
+      "output": "5 192",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 28,
+      "code": "c=int(input())\nn=int(input())\nresizes=0\nfor i in range(1,n+1):\n    if i/c>2/3:\n        c*=2;resizes+=1\nprint(resizes,c)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 45,
+      "code": "#include<stdio.h>\nint main(){int c;long long n;scanf(\"%d %lld\",&c,&n);int r=0;for(long long i=1;i<=n;i++){if(3*i>2*c){c*=2;r++;}}printf(\"%d %d\\n\",r,c);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 80,
+      "code": "let()=let c=ref(Scanf.scanf\" %d\" Fun.id) and n=Scanf.scanf\" %d\" Fun.id in let r=ref 0 in for i=1 to n do if 3*i>2* !c then begin c:= !c*2;incr r end done;Printf.printf\"%d %d\\n\" !r !c"
+    }
+  ]
+}

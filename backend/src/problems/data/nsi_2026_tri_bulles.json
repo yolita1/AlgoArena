@@ -1,0 +1,34 @@
+{
+  "id": "nsi_2026_tri_bulles",
+  "title": "Tri à bulles",
+  "description": "Trier par la méthode du tri à bulles : parcourir la liste, échanger deux voisins mal ordonnés, recommencer jusqu'à ce qu'il n'y ait plus d'échange.",
+  "inputSpec": "Première ligne : n.\nDeuxième ligne : n entiers.",
+  "outputSpec": "La liste triée.",
+  "constraints": "1 ≤ n ≤ 1000",
+  "exampleInput": "5\n5 3 8 1 4",
+  "exampleOutput": "1 3 4 5 8",
+  "difficulty": "bac_nsi",
+  "category": "sorting",
+  "tests": [
+    {
+      "input": "5\n5 3 8 1 4",
+      "output": "1 3 4 5 8"
+    },
+    {
+      "input": "1\n42",
+      "output": "42"
+    },
+    {
+      "input": "4\n4 3 2 1",
+      "output": "1 2 3 4",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 22,
+      "code": "n=int(input())\ntab=list(map(int,input().split()))\nfor i in range(n-1):\n    for j in range(n-1-i):\n        if tab[j]>tab[j+1]:tab[j],tab[j+1]=tab[j+1],tab[j]\nprint(*tab)"
+    }
+  ]
+}

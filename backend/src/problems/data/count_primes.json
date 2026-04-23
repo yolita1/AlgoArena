@@ -1,0 +1,59 @@
+{
+  "id": "count_primes",
+  "title": "Count Primes up to N",
+  "description": "Count the number of prime numbers less than or equal to N. A naive O(N√N) solution works for small N, but an O(N log log N) sieve wins in Optimization mode.",
+  "inputSpec": "A single integer N.",
+  "outputSpec": "The count of primes ≤ N.",
+  "constraints": "1 ≤ N ≤ 1000000",
+  "exampleInput": "10",
+  "exampleOutput": "4",
+  "difficulty": "post_bac",
+  "category": "math",
+  "tests": [
+    {
+      "input": "10",
+      "output": "4"
+    },
+    {
+      "input": "1",
+      "output": "0"
+    },
+    {
+      "input": "2",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "100",
+      "output": "25",
+      "hidden": true
+    },
+    {
+      "input": "1000000",
+      "output": "78498",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 35,
+      "code": "n=int(input())\nif n<2:print(0)\nelse:\n    sieve=[True]*(n+1)\n    sieve[0]=sieve[1]=False\n    for i in range(2,int(n**0.5)+1):\n        if sieve[i]:\n            for j in range(i*i,n+1,i):sieve[j]=False\n    print(sum(sieve))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 55,
+      "code": "#include<stdio.h>\n#include<string.h>\n#define MAXN 1000001\nchar sieve[MAXN];\nint main(){int n;scanf(\"%d\",&n);memset(sieve,1,sizeof(sieve));sieve[0]=sieve[1]=0;for(int i=2;(long long)i*i<=n;i++)if(sieve[i])for(int j=i*i;j<=n;j+=i)sieve[j]=0;int cnt=0;for(int i=2;i<=n;i++)cnt+=sieve[i];printf(\"%d\\n\",cnt);}"
+    },
+    {
+      "language": "c",
+      "submitDelay": 200,
+      "code": "// Naive O(N*sqrt(N)) — slower\n#include<stdio.h>\n#include<math.h>\nint is_prime(int n){if(n<2)return 0;for(int i=2;i<=(int)sqrt(n);i++)if(n%i==0)return 0;return 1;}\nint main(){int n;scanf(\"%d\",&n);int cnt=0;for(int i=2;i<=n;i++)if(is_prime(i))cnt++;printf(\"%d\\n\",cnt);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in if n<2 then print_int 0 else begin let s=Array.make(n+1)true in s.(0)<-false;s.(1)<-false;let i=ref 2 in while !i * !i<=n do if s.(!i) then begin let j=ref(!i * !i) in while !j<=n do s.(!j)<-false;j:= !j + !i done end;incr i done;let c=Array.fold_left(fun a x->if x then a+1 else a)0 s in Printf.printf\"%d\\n\" c end"
+    }
+  ]
+}

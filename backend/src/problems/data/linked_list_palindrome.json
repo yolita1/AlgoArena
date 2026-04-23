@@ -1,0 +1,54 @@
+{
+  "id": "linked_list_palindrome",
+  "title": "Liste chaînée — palindrome",
+  "description": "Étant donné une liste d'entiers, détermine si elle est un palindrome (se lit pareil dans les deux sens).",
+  "inputSpec": "Première ligne : n. Deuxième ligne : n entiers.",
+  "outputSpec": "OUI si palindrome, NON sinon.",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "5\n1 2 3 2 1",
+  "exampleOutput": "OUI",
+  "difficulty": "pre_bac",
+  "category": "data_structures",
+  "tests": [
+    {
+      "input": "5\n1 2 3 2 1",
+      "output": "OUI"
+    },
+    {
+      "input": "3\n1 2 3",
+      "output": "NON"
+    },
+    {
+      "input": "1\n42",
+      "output": "OUI",
+      "hidden": true
+    },
+    {
+      "input": "4\n1 2 2 1",
+      "output": "OUI",
+      "hidden": true
+    },
+    {
+      "input": "4\n1 2 3 4",
+      "output": "NON",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 15,
+      "code": "n=int(input())\na=list(map(int,input().split()))\nprint('OUI' if a==a[::-1] else 'NON')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 28,
+      "code": "#include<stdio.h>\nint main(){int n;scanf(\"%d\",&n);int a[100001];for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);for(int i=0;i<n/2;i++)if(a[i]!=a[n-1-i]){puts(\"NON\");return 0;}puts(\"OUI\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 60,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in let ok=ref true in for i=0 to n/2-1 do if a.(i)<>a.(n-1-i)then ok:=false done;print_endline(if !ok then\"OUI\" else\"NON\")"
+    }
+  ]
+}

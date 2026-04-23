@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_moyenne",
+  "title": "Calcul de moyenne",
+  "description": "Calcule la moyenne d'une liste de notes.\n\nExemple : `moyenne([12, 15, 8, 20, 10])` → `13.0`",
+  "inputSpec": "Une ligne : les notes séparées par des espaces.",
+  "outputSpec": "La moyenne, arrondie à 2 décimales.",
+  "constraints": "1 ≤ n ≤ 1000, 0 ≤ notes ≤ 20",
+  "exampleInput": "12 15 8 20 10",
+  "exampleOutput": "13.0",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "12 15 8 20 10",
+      "output": "13.0"
+    },
+    {
+      "input": "10",
+      "output": "10.0"
+    },
+    {
+      "input": "0 20",
+      "output": "10.0",
+      "hidden": true
+    },
+    {
+      "input": "8 9 10 11 12",
+      "output": "10.0",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 15,
+      "code": "notes=list(map(float,input().split()))\nm=sum(notes)/len(notes)\nprint(f'{m:.1f}' if m==round(m,1) else f'{m:.2f}')"
+    }
+  ]
+}

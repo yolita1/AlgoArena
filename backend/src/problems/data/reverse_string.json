@@ -1,0 +1,49 @@
+{
+  "id": "reverse_string",
+  "title": "Reverse a String",
+  "description": "Given a string, print it reversed.",
+  "inputSpec": "A single string (no spaces, length ≤ 1000).",
+  "outputSpec": "The reversed string.",
+  "constraints": "Length ≤ 1000, only lowercase letters",
+  "exampleInput": "hello",
+  "exampleOutput": "olleh",
+  "difficulty": "pre_bac",
+  "category": "strings",
+  "tests": [
+    {
+      "input": "hello",
+      "output": "olleh"
+    },
+    {
+      "input": "a",
+      "output": "a"
+    },
+    {
+      "input": "abcdef",
+      "output": "fedcba",
+      "hidden": true
+    },
+    {
+      "input": "racecar",
+      "output": "racecar",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 15,
+      "code": "print(input()[::-1])"
+    },
+    {
+      "language": "c",
+      "submitDelay": 30,
+      "code": "#include<stdio.h>\n#include<string.h>\nint main(){char s[1001];scanf(\"%s\",s);int n=strlen(s);for(int i=n-1;i>=0;i--)putchar(s[i]);putchar('\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 70,
+      "code": "let()=let s=read_line() in let n=String.length s in for i=n-1 downto 0 do print_char s.[i] done;print_newline()"
+    }
+  ]
+}

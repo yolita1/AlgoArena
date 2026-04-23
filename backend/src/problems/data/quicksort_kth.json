@@ -1,0 +1,54 @@
+{
+  "id": "quicksort_kth",
+  "title": "Quickselect — K-th Smallest",
+  "description": "Given n integers and k, find the k-th smallest element (1-indexed) without fully sorting the array.",
+  "inputSpec": "First line: n and k. Second line: n integers.",
+  "outputSpec": "The k-th smallest element.",
+  "constraints": "1 ≤ k ≤ n ≤ 100000, −10⁹ ≤ a[i] ≤ 10⁹",
+  "exampleInput": "5 3\n3 1 4 1 5",
+  "exampleOutput": "3",
+  "difficulty": "post_bac",
+  "category": "sorting",
+  "tests": [
+    {
+      "input": "5 3\n3 1 4 1 5",
+      "output": "3"
+    },
+    {
+      "input": "5 1\n3 1 4 1 5",
+      "output": "1"
+    },
+    {
+      "input": "5 5\n3 1 4 1 5",
+      "output": "5",
+      "hidden": true
+    },
+    {
+      "input": "1 1\n42",
+      "output": "42",
+      "hidden": true
+    },
+    {
+      "input": "6 3\n6 5 4 3 2 1",
+      "output": "3",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 40,
+      "code": "import random\ndef qselect(a,k):\n    if len(a)==1:return a[0]\n    p=random.choice(a)\n    lo=[x for x in a if x<p]\n    eq=[x for x in a if x==p]\n    hi=[x for x in a if x>p]\n    if k<=len(lo):return qselect(lo,k)\n    elif k<=len(lo)+len(eq):return p\n    else:return qselect(hi,k-len(lo)-len(eq))\nn,k=map(int,input().split())\na=list(map(int,input().split()))\nprint(qselect(a,k))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 65,
+      "code": "#include<stdio.h>\n#include<stdlib.h>\nint cmp(const void*a,const void*b){return*(int*)a-*(int*)b;}\nint main(){int n,k;scanf(\"%d %d\",&n,&k);int a[100001];for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);qsort(a,n,sizeof(int),cmp);printf(\"%d\\n\",a[k-1]);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 110,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id and k=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in Array.sort compare a;Printf.printf\"%d\\n\" a.(k-1)"
+    }
+  ]
+}

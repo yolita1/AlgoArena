@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_tableau2d",
+  "title": "Diagonales d'une matrice",
+  "description": "Dans une matrice carrée n×n, calculer la somme des deux diagonales :\n- Diagonale principale : cases (0,0), (1,1), …, (n-1,n-1)\n- Diagonale secondaire : cases (0,n-1), (1,n-2), …, (n-1,0)",
+  "inputSpec": "Première ligne : n.\nEnsuite n lignes de n entiers.",
+  "outputSpec": "Deux entiers : somme diagonale principale, somme diagonale secondaire.",
+  "constraints": "1 ≤ n ≤ 100, valeurs entières",
+  "exampleInput": "3\n1 2 3\n4 5 6\n7 8 9",
+  "exampleOutput": "15 15",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "3\n1 2 3\n4 5 6\n7 8 9",
+      "output": "15 15"
+    },
+    {
+      "input": "2\n1 2\n3 4",
+      "output": "5 5"
+    },
+    {
+      "input": "1\n7",
+      "output": "7 7",
+      "hidden": true
+    },
+    {
+      "input": "3\n1 0 0\n0 2 0\n0 0 3",
+      "output": "6 2",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "n=int(input())\nm=[list(map(int,input().split())) for _ in range(n)]\nd1=sum(m[i][i] for i in range(n))\nd2=sum(m[i][n-1-i] for i in range(n))\nprint(d1,d2)"
+    }
+  ]
+}

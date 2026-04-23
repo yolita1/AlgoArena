@@ -1,0 +1,64 @@
+{
+  "id": "power_mod",
+  "title": "Power Mod",
+  "description": "Given three integers b, e and m, compute (b^e) mod m. Fast exponentiation required for large values.",
+  "inputSpec": "Three integers b, e and m on a single line.",
+  "outputSpec": "The value of (b^e) mod m.",
+  "constraints": "0 ≤ b ≤ 10^9, 0 ≤ e ≤ 10^9, 1 ≤ m ≤ 10^9",
+  "exampleInput": "2 10 1000",
+  "exampleOutput": "24",
+  "tests": [
+    {
+      "input": "2 10 1000",
+      "output": "24"
+    },
+    {
+      "input": "3 0 7",
+      "output": "1"
+    },
+    {
+      "input": "5 1 3",
+      "output": "2",
+      "hidden": true
+    },
+    {
+      "input": "2 1000000000 1000000007",
+      "output": "140625001",
+      "hidden": true
+    },
+    {
+      "input": "0 5 7",
+      "output": "0",
+      "hidden": true
+    },
+    {
+      "input": "1000000000 1000000000 999999937",
+      "output": "584954402",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 40,
+      "code": "b, e, m = map(int, input().split())\nprint(pow(b, e, m))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 72,
+      "code": "#include <stdio.h>\n\nlong long power_mod(long long b, long long e, long long m) {\n    long long result = 1;\n    b %= m;\n    while (e > 0) {\n        if (e & 1) result = result * b % m;\n        b = b * b % m;\n        e >>= 1;\n    }\n    return result;\n}\n\nint main() {\n    long long b, e, m;\n    scanf(\"%lld %lld %lld\", &b, &e, &m);\n    printf(\"%lld\\n\", power_mod(b, e, m));\n    return 0;\n}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 125,
+      "code": "let power_mod b e m =\n  let b = ref (b mod m) and e = ref e and r = ref 1L in\n  let b = ref (Int64.of_int !b) and e = ref (Int64.of_int !e)\n       and m = Int64.of_int m and r = ref 1L in\n  while !e > 0L do\n    if Int64.rem !e 2L = 1L then r := Int64.rem (Int64.mul !r !b) m;\n    b := Int64.rem (Int64.mul !b !b) m;\n    e := Int64.div !e 2L\n  done;\n  !r\n\nlet () =\n  let b = Scanf.scanf \" %d\" Fun.id in\n  let e = Scanf.scanf \" %d\" Fun.id in\n  let m = Scanf.scanf \" %d\" Fun.id in\n  Printf.printf \"%Ld\\n\" (power_mod b e m)"
+    },
+    {
+      "language": "python",
+      "submitDelay": 185,
+      "code": "def power_mod(b, e, m):\n    result = 1\n    b = b % m\n    while e > 0:\n        if e % 2 == 1:\n            result = result * b % m\n        b = b * b % m\n        e //= 2\n    return result\n\nb, e, m = map(int, input().split())\nprint(power_mod(b, e, m))"
+    }
+  ],
+  "difficulty": "post_bac",
+  "category": "math"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "two_sum_count",
+  "title": "Two Sum — Count Pairs",
+  "description": "Given n integers and a target k, count how many pairs (i, j) with i < j satisfy a[i] + a[j] = k. An O(n²) approach works but an O(n) hashmap solution wins in Optimization mode.",
+  "inputSpec": "First line: n and k. Second line: n space-separated integers.",
+  "outputSpec": "The number of pairs.",
+  "constraints": "1 ≤ n ≤ 100000, -10000 ≤ a[i] ≤ 10000, -20000 ≤ k ≤ 20000",
+  "exampleInput": "5 9\n1 5 3 4 8",
+  "exampleOutput": "2",
+  "difficulty": "pre_bac",
+  "category": "search",
+  "tests": [
+    { "input": "5 9\n1 5 3 4 8",   "output": "2" },
+    { "input": "3 10\n1 2 3",         "output": "0" },
+    { "input": "4 6\n1 5 3 3",        "output": "2", "hidden": true },
+    { "input": "1 2\n1",              "output": "0", "hidden": true },
+    { "input": "6 0\n-1 1 -2 2 0 0", "output": "3", "hidden": true }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 42,
+      "code": "from collections import defaultdict\nn, k = map(int, input().split())\na = list(map(int, input().split()))\nseen = defaultdict(int)\ncount = 0\nfor x in a:\n    count += seen[k - x]\n    seen[x] += 1\nprint(count)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 68,
+      "code": "#include <stdio.h>\n#include <string.h>\n#define OFFSET 10000\n#define SIZE 20001\n\nint main() {\n    int n, k; scanf(\"%d %d\", &n, &k);\n    int a[100001], freq[SIZE];\n    memset(freq, 0, sizeof(freq));\n    long long count = 0;\n    for (int i = 0; i < n; i++) {\n        scanf(\"%d\", &a[i]);\n        int need = k - a[i] + OFFSET;\n        if (need >= 0 && need < SIZE) count += freq[need];\n        if (a[i] + OFFSET >= 0 && a[i] + OFFSET < SIZE) freq[a[i] + OFFSET]++;\n    }\n    printf(\"%lld\\n\", count);\n    return 0;\n}"
+    },
+    {
+      "language": "python",
+      "submitDelay": 190,
+      "code": "# Naive O(n²)\nn, k = map(int, input().split())\na = list(map(int, input().split()))\ncount = 0\nfor i in range(n):\n    for j in range(i+1, n):\n        if a[i] + a[j] == k: count += 1\nprint(count)"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 155,
+      "code": "let () =\n  let n = Scanf.scanf \" %d\" Fun.id and k = Scanf.scanf \" %d\" Fun.id in\n  let a = Array.init n (fun _ -> Scanf.scanf \" %d\" Fun.id) in\n  let tbl = Hashtbl.create 100 in\n  let count = ref 0 in\n  Array.iter (fun x ->\n    let need = k - x in\n    count := !count + (try Hashtbl.find tbl need with Not_found -> 0);\n    Hashtbl.replace tbl x ((try Hashtbl.find tbl x with Not_found -> 0) + 1)\n  ) a;\n  Printf.printf \"%d\\n\" !count"
+    }
+  ]
+}

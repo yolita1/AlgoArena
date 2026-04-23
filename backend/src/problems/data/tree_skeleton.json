@@ -1,0 +1,53 @@
+{
+  "id": "tree_skeleton",
+  "title": "Tree Skeleton Recognition",
+  "description": "A binary tree's skeleton is described by its shape. Given a level-order array (using 'N' for absent nodes), determine: is it a perfect binary tree, a complete binary tree, or just a regular binary tree?\n- Perfect: all leaves at the same depth, every internal node has 2 children.\n- Complete: all levels full except possibly last, which is filled left-to-right.\n- Other: none of the above.",
+  "inputSpec": "A single line: the level-order encoding. 'N' means null. Example: 1 2 3 4 5 6 7",
+  "outputSpec": "PERFECT, COMPLETE, or OTHER.",
+  "constraints": "1 ≤ number of tokens ≤ 255",
+  "exampleInput": "1 2 3 4 5 6 7",
+  "exampleOutput": "PERFECT",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "1 2 3 4 5 6 7",
+      "output": "PERFECT"
+    },
+    {
+      "input": "1 2 3 4 5",
+      "output": "COMPLETE"
+    },
+    {
+      "input": "1 2 3 N N 6 7",
+      "output": "OTHER"
+    },
+    {
+      "input": "1",
+      "output": "PERFECT",
+      "hidden": true
+    },
+    {
+      "input": "1 2 3 4 5 6",
+      "output": "COMPLETE",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 50,
+      "code": "vals=input().split()\nn=len(vals)\n# Check perfect: n = 2^k - 1 for some k\nimport math\nh=math.log2(n+1)\ndef is_int(x):return abs(x-round(x))<1e-9\nif is_int(h) and all(v!='N' for v in vals):\n    print('PERFECT')\nelse:\n    # Complete: no N before a non-N\n    found_n=False;ok=True\n    for v in vals:\n        if v=='N':found_n=True\n        elif found_n:ok=False;break\n    print('COMPLETE' if ok else 'OTHER')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 80,
+      "code": "#include<stdio.h>\n#include<string.h>\n#include<math.h>\nchar v[300][10];int n=0;\nint main(){while(scanf(\"%s\",v[n])==1)n++;int all=1;for(int i=0;i<n;i++)if(strcmp(v[i],\"N\")==0){all=0;break;}double h=log2(n+1);if(all&&fabs(h-round(h))<1e-9){puts(\"PERFECT\");return 0;}int fn=0,ok=1;for(int i=0;i<n;i++){if(strcmp(v[i],\"N\")==0)fn=1;else if(fn){ok=0;break;}}puts(ok?\"COMPLETE\":\"OTHER\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 110,
+      "code": ""
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_somme_chiffres",
+  "title": "Racine numérique",
+  "description": "La racine numérique d'un entier s'obtient en additionnant ses chiffres, puis en répétant l'opération jusqu'à obtenir un seul chiffre.\n\nExemple : 493 → 4+9+3=16 → 1+6=7. Résultat : 7.",
+  "inputSpec": "Un entier positif n.",
+  "outputSpec": "La racine numérique de n.",
+  "constraints": "1 ≤ n ≤ 10^9",
+  "exampleInput": "493",
+  "exampleOutput": "7",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "493",
+      "output": "7"
+    },
+    {
+      "input": "9",
+      "output": "9"
+    },
+    {
+      "input": "10",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "999",
+      "output": "9",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 15,
+      "code": "n=int(input())\nwhile n>=10:n=sum(int(c) for c in str(n))\nprint(n)"
+    }
+  ]
+}

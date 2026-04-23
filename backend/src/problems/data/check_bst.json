@@ -1,0 +1,49 @@
+{
+  "id": "check_bst",
+  "title": "Is It a BST?",
+  "description": "Given a binary tree encoded as adjacency: n nodes, n-1 edges, plus node values. Determine if this binary tree (rooted at node 0) satisfies the BST property: for every node, all values in its left subtree are strictly less, and all in its right subtree are strictly greater.",
+  "inputSpec": "First line: n (number of nodes). Second line: n integer values v[0..n-1]. Next n lines: left[i] right[i] (child indices, -1 if absent).",
+  "outputSpec": "YES if it is a valid BST, NO otherwise.",
+  "constraints": "1 ≤ n ≤ 1000, -10^6 ≤ values ≤ 10^6",
+  "exampleInput": "7\n4 2 6 1 3 5 7\n1 2\n3 4\n5 6\n-1 -1\n-1 -1\n-1 -1\n-1 -1",
+  "exampleOutput": "YES",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "7\n4 2 6 1 3 5 7\n1 2\n3 4\n5 6\n-1 -1\n-1 -1\n-1 -1\n-1 -1",
+      "output": "YES"
+    },
+    {
+      "input": "3\n2 1 3\n1 2\n-1 -1\n-1 -1",
+      "output": "NO"
+    },
+    {
+      "input": "1\n42\n-1 -1",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "5\n5 3 7 4 6\n1 2\n3 -1\n4 -1\n-1 -1\n-1 -1",
+      "output": "NO",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 45,
+      "code": "import sys\nsys.setrecursionlimit(10000)\nn=int(input())\nvals=list(map(int,input().split()))\nchildren=[list(map(int,input().split())) for _ in range(n)]\ndef check(u,lo,hi):\n    if u<0:return True\n    if not(lo<vals[u]<hi):return False\n    l,r=children[u]\n    return check(l,lo,vals[u]) and check(r,vals[u],hi)\nprint('YES' if check(0,-10**9,10**9) else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 75,
+      "code": "#include<stdio.h>\n#define INF 2000000\nint v[1001],l[1001],r[1001];\nint check(int u,int lo,int hi){\n  if(u<0)return 1;\n  if(v[u]<=lo||v[u]>=hi)return 0;\n  return check(l[u],lo,v[u])&&check(r[u],v[u],hi);\n}\nint main(){int n;scanf(\"%d\",&n);for(int i=0;i<n;i++)scanf(\"%d\",&v[i]);for(int i=0;i<n;i++)scanf(\"%d %d\",&l[i],&r[i]);puts(check(0,-INF,INF)?\"YES\":\"NO\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 105,
+      "code": ""
+    }
+  ]
+}

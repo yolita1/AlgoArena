@@ -1,0 +1,49 @@
+{
+  "id": "list_remove_val",
+  "title": "Liste — Supprimer toutes les occurrences",
+  "description": "Étant donné une liste de n entiers et une valeur v, supprime toutes les occurrences de v et affiche la liste résultante.",
+  "inputSpec": "Première ligne : n et v. Deuxième ligne : n entiers.",
+  "outputSpec": "La liste sans les occurrences de v, séparée par des espaces. Si vide, affiche 'vide'.",
+  "constraints": "1 ≤ n ≤ 100000, -10^6 ≤ valeurs ≤ 10^6",
+  "exampleInput": "7 3\n1 3 2 3 3 4 5",
+  "exampleOutput": "1 2 4 5",
+  "difficulty": "pre_bac",
+  "category": "data_structures",
+  "tests": [
+    {
+      "input": "7 3\n1 3 2 3 3 4 5",
+      "output": "1 2 4 5"
+    },
+    {
+      "input": "3 1\n1 1 1",
+      "output": "vide"
+    },
+    {
+      "input": "4 5\n1 2 3 4",
+      "output": "1 2 3 4",
+      "hidden": true
+    },
+    {
+      "input": "1 42\n42",
+      "output": "vide",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 18,
+      "code": "n,v=map(int,input().split())\na=[x for x in map(int,input().split()) if x!=v]\nprint(*a) if a else print('vide')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 32,
+      "code": "#include<stdio.h>\nint main(){int n,v;scanf(\"%d %d\",&n,&v);int f=1;for(int i=0;i<n;i++){int x;scanf(\"%d\",&x);if(x!=v){if(!f)printf(\" \");printf(\"%d\",x);f=0;}}if(f)printf(\"vide\");printf(\"\\n\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 65,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id and v=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in let r=Array.to_list(Array.of_seq(Seq.filter(fun x->x<>v)(Array.to_seq a))) in if r=[] then print_string\"vide\\n\" else List.iter(fun x->Printf.printf\"%d \" x)r;print_newline()"
+    }
+  ]
+}

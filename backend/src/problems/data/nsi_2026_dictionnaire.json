@@ -1,0 +1,34 @@
+{
+  "id": "nsi_2026_dictionnaire",
+  "title": "Mot le plus fréquent",
+  "description": "Trouver le mot qui apparaît le plus souvent dans un texte.\nEn cas d'égalité, prendre le premier par ordre alphabétique.\n\nUtiliser un dictionnaire Python.",
+  "inputSpec": "Une ligne : le texte (mots en minuscules séparés par des espaces).",
+  "outputSpec": "Le mot le plus fréquent.",
+  "constraints": "1 ≤ mots ≤ 10000, longueur mot ≤ 100",
+  "exampleInput": "le chat et le chien et le chat",
+  "exampleOutput": "le",
+  "difficulty": "bac_nsi",
+  "category": "strings",
+  "tests": [
+    {
+      "input": "le chat et le chien et le chat",
+      "output": "le"
+    },
+    {
+      "input": "un seul mot",
+      "output": "mot"
+    },
+    {
+      "input": "a b a b",
+      "output": "a",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 18,
+      "code": "mots=input().split()\nd={}\nfor m in mots:d[m]=d.get(m,0)+1\nmax_freq=max(d.values())\nprint(min(k for k,v in d.items() if v==max_freq))"
+    }
+  ]
+}

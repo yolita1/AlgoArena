@@ -1,0 +1,45 @@
+{
+  "id": "stack_ops",
+  "title": "Opérations sur une pile",
+  "description": "Simule une pile (LIFO) avec les opérations suivantes :\n- PUSH x : empile x\n- POP : dépile et affiche le sommet (ou 'VIDE' si la pile est vide)\n- TOP : affiche le sommet sans dépiler (ou 'VIDE')\n- SIZE : affiche le nombre d'éléments",
+  "inputSpec": "Première ligne : n (nombre d'opérations). Ensuite n lignes d'opérations.",
+  "outputSpec": "Une ligne par opération POP ou TOP ou SIZE.",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "6\nPUSH 3\nPUSH 7\nTOP\nPOP\nPOP\nPOP",
+  "exampleOutput": "7\n7\n3\nVIDE",
+  "difficulty": "pre_bac",
+  "category": "data_structures",
+  "tests": [
+    {
+      "input": "6\nPUSH 3\nPUSH 7\nTOP\nPOP\nPOP\nPOP",
+      "output": "7\n7\n3\nVIDE"
+    },
+    {
+      "input": "3\nPUSH 1\nSIZE\nPOP",
+      "output": "1\n1",
+      "hidden": true
+    },
+    {
+      "input": "2\nPOP\nTOP",
+      "output": "VIDE\nVIDE",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 28,
+      "code": "n=int(input())\nst=[]\nfor _ in range(n):\n    line=input().split()\n    op=line[0]\n    if op=='PUSH':st.append(int(line[1]))\n    elif op=='POP':print(st.pop() if st else 'VIDE')\n    elif op=='TOP':print(st[-1] if st else 'VIDE')\n    elif op=='SIZE':print(len(st))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 55,
+      "code": "#include<stdio.h>\nint st[100001],top=0;\nint main(){int n;scanf(\"%d\",&n);char op[10];while(n--){scanf(\"%s\",op);if(op[0]=='P'&&op[1]=='U'){int x;scanf(\"%d\",&x);st[top++]=x;}else if(op[0]=='P'){printf(\"%d\\n\",top?st[--top]:(puts(\"VIDE\"),0));}else if(op[0]=='T'){if(top)printf(\"%d\\n\",st[top-1]);else puts(\"VIDE\");}else printf(\"%d\\n\",top);}}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 80,
+      "code": ""
+    }
+  ]
+}

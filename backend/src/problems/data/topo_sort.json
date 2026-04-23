@@ -1,0 +1,40 @@
+{
+  "id": "topo_sort",
+  "title": "Topological Sort",
+  "description": "Given a directed acyclic graph (DAG), output a valid topological ordering of its nodes (0-indexed). If multiple valid orderings exist, output any.",
+  "inputSpec": "First line: n (nodes) and m (edges). Next m lines: u v (directed edge from u to v).",
+  "outputSpec": "A valid topological order: n space-separated node indices.",
+  "constraints": "2 ≤ n ≤ 1000, 0 ≤ m ≤ 5000",
+  "exampleInput": "4 3\n0 1\n0 2\n1 3",
+  "exampleOutput": "0 1 2 3",
+  "difficulty": "post_bac",
+  "category": "graphs",
+  "tests": [
+    {
+      "input": "4 3\n0 1\n0 2\n1 3",
+      "output": "0 1 2 3"
+    },
+    {
+      "input": "3 0\n",
+      "output": "0 1 2",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 60,
+      "code": "from collections import deque\nn,m=map(int,input().split())\nadj=[[] for _ in range(n)]\nindeg=[0]*n\nfor _ in range(m):\n    u,v=map(int,input().split())\n    adj[u].append(v);indeg[v]+=1\nq=deque(i for i in range(n) if indeg[i]==0)\nres=[]\nwhile q:\n    u=q.popleft();res.append(u)\n    for v in adj[u]:\n        indeg[v]-=1\n        if indeg[v]==0:q.append(v)\nprint(*res)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 95,
+      "code": "#include<stdio.h>\n#include<string.h>\nint adj[1001][5001],deg[1001],indeg[1001],q[1001],res[1001];\nint main(){int n,m;scanf(\"%d %d\",&n,&m);for(int i=0;i<m;i++){int u,v;scanf(\"%d %d\",&u,&v);adj[u][deg[u]++]=v;indeg[v]++;}int front=0,back=0,k=0;for(int i=0;i<n;i++)if(!indeg[i])q[back++]=i;while(front<back){int u=q[front++];res[k++]=u;for(int j=0;j<deg[u];j++){int v=adj[u][j];if(--indeg[v]==0)q[back++]=v;}}for(int i=0;i<n;i++)printf(\"%d%c\",res[i],i<n-1?' ':'\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 150,
+      "code": ""
+    }
+  ]
+}

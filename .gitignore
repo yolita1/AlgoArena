@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+
+# Environment — NEVER commit these
+.env
+.env.local
+.env.production
+backend/.env
+
+# Runtime data — auto-created
+backend/temp/
+backend/data/
+backend/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# TypeScript cache
+*.tsbuildinfo

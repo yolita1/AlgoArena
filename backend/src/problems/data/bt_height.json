@@ -1,0 +1,49 @@
+{
+  "id": "bt_height",
+  "title": "Binary Tree Height (recursive)",
+  "description": "Given a binary tree encoded as parent array (parent[i] = parent of node i, -1 for root), compute its height: the number of edges on the longest root-to-leaf path.",
+  "inputSpec": "First line: n. Second line: n integers, the parent of each node (0-indexed, -1 = root).",
+  "outputSpec": "The height of the tree (0 for a single node).",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "7\n-1 0 0 1 1 2 2",
+  "exampleOutput": "2",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "7\n-1 0 0 1 1 2 2",
+      "output": "2"
+    },
+    {
+      "input": "1\n-1",
+      "output": "0"
+    },
+    {
+      "input": "5\n-1 0 1 2 3",
+      "output": "4",
+      "hidden": true
+    },
+    {
+      "input": "4\n-1 0 0 0",
+      "output": "1",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 30,
+      "code": "import sys\nsys.setrecursionlimit(200000)\nn=int(input())\np=list(map(int,input().split()))\nch=[[] for _ in range(n)]\nroot=0\nfor i,par in enumerate(p):\n    if par==-1:root=i\n    else:ch[par].append(i)\ndef h(u):return 0 if not ch[u] else 1+max(h(c) for c in ch[u])\nprint(h(root))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 55,
+      "code": "#include<stdio.h>\n#define N 100001\nint ch[N][2],nc[N],dep[N],q[N];\nint main(){int n;scanf(\"%d\",&n);for(int i=0;i<n;i++)nc[i]=0;int root=0;for(int i=0;i<n;i++){int p;scanf(\"%d\",&p);if(p<0)root=i;else{ch[p][nc[p]++]=i;}}int front=0,back=0;q[back++]=root;dep[root]=0;int ans=0;while(front<back){int u=q[front++];if(dep[u]>ans)ans=dep[u];for(int j=0;j<nc[u];j++){dep[ch[u][j]]=dep[u]+1;q[back++]=ch[u][j];}}printf(\"%d\\n\",ans);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": ""
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "bt_same_skeleton",
+  "title": "Même squelette ?",
+  "description": "Deux arbres binaires ont le même squelette si et seulement si leur structure (forme) est identique, indépendamment des étiquettes. Étant donné deux arbres en level-order (valeurs entières et 'N'), déterminer s'ils ont le même squelette.",
+  "inputSpec": "Deux lignes, chacune contenant un encodage level-order.",
+  "outputSpec": "OUI si même squelette, NON sinon.",
+  "constraints": "1 ≤ nœuds ≤ 1000",
+  "exampleInput": "1 2 3 4 5\n10 20 30 40 50",
+  "exampleOutput": "OUI",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "1 2 3 4 5\n10 20 30 40 50",
+      "output": "OUI"
+    },
+    {
+      "input": "1 2 3\n1 2 N",
+      "output": "NON"
+    },
+    {
+      "input": "1\n99",
+      "output": "OUI",
+      "hidden": true
+    },
+    {
+      "input": "1 2 3 N N 6 7\n9 8 7 N N 5 4",
+      "output": "OUI",
+      "hidden": true
+    },
+    {
+      "input": "1 2 3\n1 N 3",
+      "output": "NON",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 40,
+      "code": "def nodes(line):\n    v=line.split();n=len(v)\n    left=lambda i:2*i+1\n    right=lambda i:2*i+2\n    return v,n\ndef skel(v,n,i):\n    if i>=n or v[i]=='N':return 'N'\n    return f'({skel(v,n,2*i+1)},{skel(v,n,2*i+2)})'\nv1,n1=nodes(input())\nv2,n2=nodes(input())\nprint('OUI' if skel(v1,n1,0)==skel(v2,n2,0) else 'NON')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 70,
+      "code": "#include<stdio.h>\n#include<string.h>\nchar a[1001][12],b[1001][12];int na=0,nb=0;\nint eq(char v1[][12],int n1,int i1,char v2[][12],int n2,int i2){\n  int e1=i1>=n1||strcmp(v1[i1],\"N\")==0;\n  int e2=i2>=n2||strcmp(v2[i2],\"N\")==0;\n  if(e1&&e2)return 1;if(e1||e2)return 0;\n  return eq(v1,n1,2*i1+1,v2,n2,2*i2+1)&&eq(v1,n1,2*i1+2,v2,n2,2*i2+2);\n}\nint main(){while(scanf(\"%s\",a[na])==1)na++;while(scanf(\"%s\",b[nb])==1)nb++;puts(eq(a,na,0,b,nb,0)?\"OUI\":\"NON\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": ""
+    }
+  ]
+}

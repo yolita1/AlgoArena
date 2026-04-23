@@ -1,0 +1,54 @@
+{
+  "id": "rb_check",
+  "title": "Red-Black Tree Validity Check",
+  "description": "A red-black tree satisfies:\n1. Root is Black\n2. No two consecutive Red nodes on any path\n3. All paths from root to Nil have the same number of Black nodes\n\nGiven a binary search tree in level-order where each value is prefixed by 'R' (red) or 'B' (black), and 'N' for null, determine if it is a valid red-black tree.",
+  "inputSpec": "A single line: level-order encoding. Each non-null node is 'R:value' or 'B:value'. Null = 'N'.",
+  "outputSpec": "YES if valid red-black tree, NO otherwise. If YES also print the black height.",
+  "constraints": "1 ≤ nodes ≤ 1000",
+  "exampleInput": "B:13 R:8 R:17 B:1 B:11 B:15 B:25",
+  "exampleOutput": "YES 2",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "B:13 R:8 R:17 B:1 B:11 B:15 B:25",
+      "output": "YES 2"
+    },
+    {
+      "input": "R:1",
+      "output": "NO"
+    },
+    {
+      "input": "B:1 R:2 R:3",
+      "output": "NO",
+      "hidden": true
+    },
+    {
+      "input": "B:5 B:3 B:7",
+      "output": "YES 2",
+      "hidden": true
+    },
+    {
+      "input": "B:10 R:5 B:15 B:3 B:7 N N",
+      "output": "YES 2",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 60,
+      "code": "vals=input().split()\nn=len(vals)\nleft=lambda i:2*i+1\nright=lambda i:2*i+2\n\ndef bh(i,par_red):\n    if i>=n or vals[i]=='N':return 0\n    is_red=vals[i].startswith('R')\n    if par_red and is_red:return -1  # violation P4\n    lh=bh(left(i),is_red)\n    rh=bh(right(i),is_red)\n    if lh<0 or rh<0 or lh!=rh:return -1\n    return lh+(0 if is_red else 1)\n\nif vals[0]=='N':print('YES 0')\nelif vals[0].startswith('R'):print('NO')\nelse:\n    h=bh(0,False)\n    print('YES',h) if h>=0 else print('NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 95,
+      "code": "#include<stdio.h>\n#include<string.h>\nchar v[1001][20];int n=0;\nint bh(int i,int par_red){\n  if(i>=n||strcmp(v[i],\"N\")==0)return 0;\n  int red=v[i][0]=='R';\n  if(par_red&&red)return-1;\n  int lh=bh(2*i+1,red),rh=bh(2*i+2,red);\n  if(lh<0||rh<0||lh!=rh)return-1;\n  return lh+(red?0:1);\n}\nint main(){while(scanf(\"%s\",v[n])==1)n++;if(strcmp(v[0],\"N\")==0){puts(\"YES 0\");return 0;}if(v[0][0]=='R'){puts(\"NO\");return 0;}int h=bh(0,0);if(h<0)puts(\"NO\");else printf(\"YES %d\\n\",h);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 130,
+      "code": ""
+    }
+  ]
+}

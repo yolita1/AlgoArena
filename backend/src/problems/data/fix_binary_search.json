@@ -1,0 +1,42 @@
+{
+  "id": "fix_binary_search",
+  "title": "Fix the Binary Search",
+  "description": "The following Python code claims to find if a target value exists in a sorted array, but it has a bug. Find and fix it.\n\n```python\ndef binary_search(arr, target):\n    lo, hi = 0, len(arr)\n    while lo < hi:\n        mid = (lo + hi) // 2\n        if arr[mid] == target:\n            return True\n        elif arr[mid] < target:\n            lo = mid\n        else:\n            hi = mid\n    return False\n\nn, t = map(int, input().split())\narr = list(map(int, input().split()))\nprint('YES' if binary_search(arr, t) else 'NO')\n```\n\nThe bug causes an infinite loop for some inputs. Fix it.",
+  "inputSpec": "First line: n (size) and t (target). Second line: n sorted integers.",
+  "outputSpec": "YES if target found, NO otherwise.",
+  "constraints": "1 ≤ n ≤ 1000, values in [-10000, 10000], array is sorted ascending",
+  "exampleInput": "5 3\n1 2 3 4 5",
+  "exampleOutput": "YES",
+  "difficulty": "pre_bac",
+  "category": "search",
+  "tests": [
+    { "input": "5 3\n1 2 3 4 5",  "output": "YES" },
+    { "input": "5 6\n1 2 3 4 5",  "output": "NO" },
+    { "input": "1 1\n1",            "output": "YES", "hidden": true },
+    { "input": "4 2\n1 2 3 4",     "output": "YES", "hidden": true },
+    { "input": "3 5\n1 3 7",       "output": "NO",  "hidden": true },
+    { "input": "2 1\n1 2",          "output": "YES", "hidden": true }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 50,
+      "code": "def binary_search(arr, target):\n    lo, hi = 0, len(arr) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if arr[mid] == target:\n            return True\n        elif arr[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return False\n\nn, t = map(int, input().split())\narr = list(map(int, input().split()))\nprint('YES' if binary_search(arr, t) else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 85,
+      "code": "#include <stdio.h>\n\nint binary_search(int arr[], int n, int t) {\n    int lo = 0, hi = n - 1;\n    while (lo <= hi) {\n        int mid = (lo + hi) / 2;\n        if (arr[mid] == t) return 1;\n        else if (arr[mid] < t) lo = mid + 1;\n        else hi = mid - 1;\n    }\n    return 0;\n}\n\nint main() {\n    int n, t; scanf(\"%d %d\", &n, &t);\n    int arr[1001];\n    for (int i = 0; i < n; i++) scanf(\"%d\", &arr[i]);\n    printf(\"%s\\n\", binary_search(arr, n, t) ? \"YES\" : \"NO\");\n    return 0;\n}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 140,
+      "code": "let () =\n  let n = Scanf.scanf \" %d\" Fun.id and t = Scanf.scanf \" %d\" Fun.id in\n  let arr = Array.init n (fun _ -> Scanf.scanf \" %d\" Fun.id) in\n  let lo = ref 0 and hi = ref (n-1) and found = ref false in\n  while !lo <= !hi && not !found do\n    let mid = (!lo + !hi) / 2 in\n    if arr.(mid) = t then found := true\n    else if arr.(mid) < t then lo := mid + 1\n    else hi := mid - 1\n  done;\n  print_string (if !found then \"YES\" else \"NO\");\n  print_newline ()"
+    },
+    {
+      "language": "python",
+      "submitDelay": 210,
+      "code": "n, t = map(int, input().split())\narr = list(map(int, input().split()))\nprint('YES' if t in arr else 'NO')"
+    }
+  ]
+}

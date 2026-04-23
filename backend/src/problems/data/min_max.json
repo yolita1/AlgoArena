@@ -1,0 +1,49 @@
+{
+  "id": "min_max",
+  "title": "Minimum and Maximum",
+  "description": "Given an array of n integers, find the minimum and the maximum element.",
+  "inputSpec": "First line: n. Second line: n space-separated integers.",
+  "outputSpec": "Two integers on one line: the minimum then the maximum, separated by a space.",
+  "constraints": "1 ≤ n ≤ 10000, −10⁶ ≤ a[i] ≤ 10⁶",
+  "exampleInput": "5\n3 1 4 1 5",
+  "exampleOutput": "1 5",
+  "difficulty": "pre_bac",
+  "category": "math",
+  "tests": [
+    {
+      "input": "5\n3 1 4 1 5",
+      "output": "1 5"
+    },
+    {
+      "input": "1\n7",
+      "output": "7 7"
+    },
+    {
+      "input": "3\n-5 0 5",
+      "output": "-5 5",
+      "hidden": true
+    },
+    {
+      "input": "4\n10 10 10 10",
+      "output": "10 10",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 18,
+      "code": "n=int(input())\na=list(map(int,input().split()))\nprint(min(a),max(a))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 38,
+      "code": "#include<stdio.h>\nint main(){int n,x;scanf(\"%d%d\",&n,&x);int mn=x,mx=x;for(int i=1;i<n;i++){scanf(\"%d\",&x);if(x<mn)mn=x;if(x>mx)mx=x;}printf(\"%d %d\\n\",mn,mx);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 85,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in Printf.printf\"%d %d\\n\"(Array.fold_left min a.(0) a)(Array.fold_left max a.(0) a)"
+    }
+  ]
+}

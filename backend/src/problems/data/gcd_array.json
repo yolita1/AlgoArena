@@ -1,0 +1,54 @@
+{
+  "id": "gcd_array",
+  "title": "GCD of Array",
+  "description": "Given n integers, compute their greatest common divisor (GCD). In Optimization mode, an O(n log(max)) solution wins over O(n²).",
+  "inputSpec": "First line: n. Second line: n positive integers.",
+  "outputSpec": "The GCD of all n integers.",
+  "constraints": "1 ≤ n ≤ 100000, 1 ≤ a[i] ≤ 10⁹",
+  "exampleInput": "4\n12 8 16 4",
+  "exampleOutput": "4",
+  "difficulty": "pre_bac",
+  "category": "math",
+  "tests": [
+    {
+      "input": "4\n12 8 16 4",
+      "output": "4"
+    },
+    {
+      "input": "3\n7 14 21",
+      "output": "7"
+    },
+    {
+      "input": "1\n42",
+      "output": "42",
+      "hidden": true
+    },
+    {
+      "input": "2\n100 75",
+      "output": "25",
+      "hidden": true
+    },
+    {
+      "input": "5\n17 34 51 68 85",
+      "output": "17",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "from math import gcd\nfrom functools import reduce\nn=int(input())\na=list(map(int,input().split()))\nprint(reduce(gcd,a))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 40,
+      "code": "#include<stdio.h>\nint gcd(int a,int b){return b?gcd(b,a%b):a;}\nint main(){int n;scanf(\"%d\",&n);int x;scanf(\"%d\",&x);for(int i=1;i<n;i++){int y;scanf(\"%d\",&y);x=gcd(x,y);}printf(\"%d\\n\",x);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": "let rec gcd a b=if b=0 then a else gcd b(a mod b)\nlet()=let n=Scanf.scanf\" %d\" Fun.id in let x=ref(Scanf.scanf\" %d\" Fun.id) in for _=2 to n do x:=gcd !x(Scanf.scanf\" %d\" Fun.id) done;Printf.printf\"%d\\n\" !x"
+    }
+  ]
+}

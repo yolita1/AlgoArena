@@ -1,0 +1,54 @@
+{
+  "id": "bt_mirror",
+  "title": "Is Binary Tree Symmetric?",
+  "description": "A binary tree is symmetric (mirror of itself) if the left subtree is the mirror of the right subtree. Given a binary tree encoded as a level-order array ('N' for null nodes), determine if it is symmetric.",
+  "inputSpec": "A single line: the level-order encoding of the tree. 'N' means null/absent node. Example: 1 2 2 3 4 4 3",
+  "outputSpec": "YES if the tree is symmetric, NO otherwise.",
+  "constraints": "1 ≤ number of nodes ≤ 1000",
+  "exampleInput": "1 2 2 3 4 4 3",
+  "exampleOutput": "YES",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "1 2 2 3 4 4 3",
+      "output": "YES"
+    },
+    {
+      "input": "1 2 2 N 3 N 3",
+      "output": "NO"
+    },
+    {
+      "input": "1",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "1 2 3",
+      "output": "NO",
+      "hidden": true
+    },
+    {
+      "input": "1 2 2 N N N N",
+      "output": "YES",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 40,
+      "code": "vals=input().split()\ndef isMirror(l,r):\n    if l>=len(vals) or r>=len(vals):return True\n    if vals[l]=='N' and vals[r]=='N':return True\n    if vals[l]=='N' or vals[r]=='N':return False\n    if vals[l]!=vals[r]:return False\n    return isMirror(2*l+1,2*r+2) and isMirror(2*l+2,2*r+1)\nprint('YES' if isMirror(1,2) else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 70,
+      "code": "#include<stdio.h>\n#include<string.h>\nchar v[1001][10];int n=0;\nint mirror(int l,int r){\n  if(l>=n||r>=n)return 1;\n  if(strcmp(v[l],\"N\")==0&&strcmp(v[r],\"N\")==0)return 1;\n  if(strcmp(v[l],\"N\")==0||strcmp(v[r],\"N\")==0)return 0;\n  if(strcmp(v[l],v[r])!=0)return 0;\n  return mirror(2*l+1,2*r+2)&&mirror(2*l+2,2*r+1);\n}\nint main(){while(scanf(\"%s\",v[n])==1)n++;puts(mirror(1,2)?\"YES\":\"NO\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 100,
+      "code": ""
+    }
+  ]
+}

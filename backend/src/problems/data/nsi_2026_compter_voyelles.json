@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_compter_voyelles",
+  "title": "Compter les voyelles",
+  "description": "Compter les voyelles (a, e, i, o, u, y — majuscules et minuscules) dans un texte.",
+  "inputSpec": "Une chaîne de caractères.",
+  "outputSpec": "Le nombre de voyelles.",
+  "constraints": "0 ≤ longueur ≤ 10000",
+  "exampleInput": "Bonjour le monde",
+  "exampleOutput": "7",
+  "difficulty": "bac_nsi",
+  "category": "strings",
+  "tests": [
+    {
+      "input": "Bonjour le monde",
+      "output": "7"
+    },
+    {
+      "input": "bcd",
+      "output": "0"
+    },
+    {
+      "input": "aeiou",
+      "output": "5",
+      "hidden": true
+    },
+    {
+      "input": "Python NSI",
+      "output": "3",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 14,
+      "code": "s=input()\nprint(sum(1 for c in s.lower() if c in 'aeiouy'))"
+    }
+  ]
+}

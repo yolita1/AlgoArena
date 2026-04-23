@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_anagramme",
+  "title": "Anagrammes",
+  "description": "Deux mots sont des anagrammes si l'un est une permutation des lettres de l'autre, indépendamment de la casse.\n\n`listen` et `silent` sont anagrammes. `chien` et `niche` aussi.",
+  "inputSpec": "Deux lignes, chacune contenant un mot.",
+  "outputSpec": "True si anagrammes, False sinon.",
+  "constraints": "1 ≤ longueur ≤ 1000, lettres uniquement",
+  "exampleInput": "listen\nsilent",
+  "exampleOutput": "True",
+  "difficulty": "bac_nsi",
+  "category": "strings",
+  "tests": [
+    {
+      "input": "listen\nsilent",
+      "output": "True"
+    },
+    {
+      "input": "hello\nworld",
+      "output": "False"
+    },
+    {
+      "input": "Rame\nmarer",
+      "output": "True",
+      "hidden": true
+    },
+    {
+      "input": "abc\nabc",
+      "output": "True",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 17,
+      "code": "a=input().lower();b=input().lower()\nprint(sorted(a)==sorted(b))"
+    }
+  ]
+}

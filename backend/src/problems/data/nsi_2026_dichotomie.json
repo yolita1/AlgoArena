@@ -1,0 +1,44 @@
+{
+  "id": "nsi_2026_dichotomie",
+  "title": "Recherche dichotomique",
+  "description": "Dans une liste triée par ordre croissant, chercher une valeur par dichotomie.\n\nPrincipe : comparer avec l'élément du milieu, puis chercher à gauche ou à droite selon le résultat. Complexité O(log n).",
+  "inputSpec": "Première ligne : n et la valeur cherchée.\nDeuxième ligne : n entiers triés.",
+  "outputSpec": "True si la valeur est présente, False sinon.",
+  "constraints": "1 ≤ n ≤ 100000, valeurs entières",
+  "exampleInput": "5 7\n1 3 7 9 11",
+  "exampleOutput": "True",
+  "difficulty": "bac_nsi",
+  "category": "search",
+  "tests": [
+    {
+      "input": "5 7\n1 3 7 9 11",
+      "output": "True"
+    },
+    {
+      "input": "5 6\n1 3 7 9 11",
+      "output": "False"
+    },
+    {
+      "input": "1 1\n1",
+      "output": "True",
+      "hidden": true
+    },
+    {
+      "input": "4 5\n1 2 3 4",
+      "output": "False",
+      "hidden": true
+    },
+    {
+      "input": "6 4\n1 2 3 4 5 6",
+      "output": "True",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 18,
+      "code": "n,v=map(int,input().split())\ntab=list(map(int,input().split()))\nlo,hi=0,n-1\nfound=False\nwhile lo<=hi:\n    m=(lo+hi)//2\n    if tab[m]==v:found=True;break\n    elif tab[m]<v:lo=m+1\n    else:hi=m-1\nprint(found)"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "rb_black_height",
+  "title": "Red-Black Tree — Black Height Bound",
+  "description": "For a red-black tree with n nodes:\n- Black height b satisfies: b ≤ h+1 ≤ 2b (where h is the tree height)\n- Size satisfies: n ≥ 2^b - 1\n\nGiven n (number of nodes), compute:\n1. The minimum possible black height b_min (smallest b with 2^b - 1 ≤ n)\n2. The minimum possible height h_min = b_min - 1\n3. The maximum possible height h_max = 2*b_max - 1 where b_max satisfies 2^b_max - 1 ≤ n",
+  "inputSpec": "A single integer n.",
+  "outputSpec": "Three integers: b_min h_min h_max.",
+  "constraints": "1 ≤ n ≤ 10^9",
+  "exampleInput": "7",
+  "exampleOutput": "3 2 5",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "7",
+      "output": "3 2 5"
+    },
+    {
+      "input": "1",
+      "output": "1 0 1"
+    },
+    {
+      "input": "15",
+      "output": "4 3 7",
+      "hidden": true
+    },
+    {
+      "input": "32767",
+      "output": "15 14 29",
+      "hidden": true
+    },
+    {
+      "input": "100",
+      "output": "7 6 13",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 30,
+      "code": "import math\nn=int(input())\n# b_min: smallest b with 2^b-1 <= n → b = floor(log2(n+1))\nb_min=int(math.log2(n+1))\nif 2**b_min-1>n:b_min-=1\nb_min=max(1,b_min)\nb_max=b_min  # same for upper bound on b\n# h_min = b_min - 1 (all nodes black → perfect tree → height = b-1)\nh_min=b_min-1\n# h_max = 2*b_max - 1 (alternating red-black)\nh_max=2*b_max-1\nprint(b_min,h_min,h_max)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 50,
+      "code": "#include<stdio.h>\n#include<math.h>\nint main(){long long n;scanf(\"%lld\",&n);int b=(int)log2(n+1);if((1LL<<b)-1>n)b--;b=b<1?1:b;printf(\"%d %d %d\\n\",b,b-1,2*b-1);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 85,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let b=ref 1 in while (1 lsl !b)-1<=n do incr b done;decr b;if !b<1 then b:=1;Printf.printf\"%d %d %d\\n\" !b(!b-1)(2* !b-1)"
+    }
+  ]
+}

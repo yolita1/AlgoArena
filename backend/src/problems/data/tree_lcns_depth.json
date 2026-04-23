@@ -1,0 +1,49 @@
+{
+  "id": "tree_lcns_depth",
+  "title": "Arbre quelconque → profondeur",
+  "description": "Un arbre d'arité quelconque est donné sous forme de liste de paires (nœud, parent) avec -1 pour la racine. Calcule la profondeur (distance à la racine, racine = 0) de chaque nœud et affiche la profondeur maximale de l'arbre.",
+  "inputSpec": "Première ligne : n (nombre de nœuds). Deuxième ligne : n entiers, le parent de chaque nœud i (0-indexé, -1 = racine).",
+  "outputSpec": "La profondeur maximale de l'arbre (0 pour un arbre à 1 nœud).",
+  "constraints": "1 ≤ n ≤ 100000",
+  "exampleInput": "6\n-1 0 0 1 1 2",
+  "exampleOutput": "2",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "6\n-1 0 0 1 1 2",
+      "output": "2"
+    },
+    {
+      "input": "1\n-1",
+      "output": "0"
+    },
+    {
+      "input": "5\n-1 0 1 2 3",
+      "output": "4",
+      "hidden": true
+    },
+    {
+      "input": "7\n-1 0 0 0 1 1 2",
+      "output": "2",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 28,
+      "code": "n=int(input())\np=list(map(int,input().split()))\ndep=[0]*n\nfor i,par in enumerate(p):\n    if par>=0:dep[i]=dep[par]+1\nprint(max(dep))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 45,
+      "code": "#include<stdio.h>\nint dep[100001];\nint main(){int n;scanf(\"%d\",&n);int p[100001];for(int i=0;i<n;i++)scanf(\"%d\",&p[i]);dep[0]=0;for(int i=1;i<n;i++)dep[i]=dep[p[i]]+(p[i]>=0?1:0);int m=0;for(int i=0;i<n;i++)if(dep[i]>m)m=dep[i];printf(\"%d\\n\",m);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 80,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let p=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in let d=Array.make n 0 in for i=1 to n-1 do if p.(i)>=0 then d.(i)<-d.(p.(i))+1 done;Printf.printf\"%d\\n\"(Array.fold_left max 0 d)"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "knapsack",
+  "title": "0/1 Knapsack",
+  "description": "Given n items each with a weight and a value, and a knapsack of capacity W, find the maximum total value you can carry without exceeding the weight limit. Each item can be taken at most once.",
+  "inputSpec": "First line: n and W. Next n lines: weight_i value_i.",
+  "outputSpec": "The maximum total value.",
+  "constraints": "1 ≤ n ≤ 100, 1 ≤ W ≤ 1000, 1 ≤ weight,value ≤ 1000",
+  "exampleInput": "4 5\n2 3\n3 4\n1 2\n4 5",
+  "exampleOutput": "7",
+  "difficulty": "post_bac",
+  "category": "dynamic_programming",
+  "tests": [
+    {
+      "input": "4 5\n2 3\n3 4\n1 2\n4 5",
+      "output": "7"
+    },
+    {
+      "input": "1 10\n5 10",
+      "output": "10"
+    },
+    {
+      "input": "2 3\n4 5\n4 5",
+      "output": "0",
+      "hidden": true
+    },
+    {
+      "input": "3 6\n2 3\n3 4\n4 5",
+      "output": "7",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 50,
+      "code": "n,W=map(int,input().split())\nitems=[tuple(map(int,input().split())) for _ in range(n)]\ndp=[0]*(W+1)\nfor w,v in items:\n    for j in range(W,w-1,-1):\n        dp[j]=max(dp[j],dp[j-w]+v)\nprint(dp[W])"
+    },
+    {
+      "language": "c",
+      "submitDelay": 85,
+      "code": "#include<stdio.h>\nint dp[1001];\nint main(){int n,W;scanf(\"%d %d\",&n,&W);int wt[101],vl[101];for(int i=0;i<n;i++)scanf(\"%d %d\",&wt[i],&vl[i]);for(int i=0;i<n;i++)for(int j=W;j>=wt[i];j--)if(dp[j-wt[i]]+vl[i]>dp[j])dp[j]=dp[j-wt[i]]+vl[i];printf(\"%d\\n\",dp[W]);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 130,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id and cap=Scanf.scanf\" %d\" Fun.id in let items=Array.init n(fun _->(Scanf.scanf\" %d\" Fun.id,Scanf.scanf\" %d\" Fun.id)) in let dp=Array.make(cap+1)0 in Array.iter(fun(w,v)->for j=cap downto w do if dp.(j-w)+v>dp.(j)then dp.(j)<-dp.(j-w)+v done)items;Printf.printf\"%d\\n\" dp.(cap)"
+    }
+  ]
+}

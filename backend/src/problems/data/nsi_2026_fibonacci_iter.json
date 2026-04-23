@@ -1,0 +1,44 @@
+{
+  "id": "nsi_2026_fibonacci_iter",
+  "title": "Fibonacci (version itérative)",
+  "description": "Calculer le n-ième terme de la suite de Fibonacci **sans récursion**.\n\nF(0)=0, F(1)=1, F(n)=F(n−1)+F(n−2).\n\nLa version itérative est bien plus efficace que la version récursive naïve.",
+  "inputSpec": "Un entier n.",
+  "outputSpec": "F(n).",
+  "constraints": "0 ≤ n ≤ 80",
+  "exampleInput": "10",
+  "exampleOutput": "55",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "10",
+      "output": "55"
+    },
+    {
+      "input": "0",
+      "output": "0"
+    },
+    {
+      "input": "1",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "20",
+      "output": "6765",
+      "hidden": true
+    },
+    {
+      "input": "50",
+      "output": "12586269025",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 16,
+      "code": "n=int(input())\nif n==0:print(0)\nelif n==1:print(1)\nelse:\n    a,b=0,1\n    for _ in range(n-1):a,b=b,a+b\n    print(b)"
+    }
+  ]
+}

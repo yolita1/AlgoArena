@@ -1,0 +1,59 @@
+{
+  "id": "reverse_words",
+  "title": "Reverse Words",
+  "description": "Given a sentence, reverse the order of the words. Words are separated by single spaces. There is no leading or trailing whitespace in the input.",
+  "inputSpec": "A single line containing a sentence (1 to 100 characters).",
+  "outputSpec": "The words of the sentence in reversed order, separated by single spaces.",
+  "constraints": "1 ≤ length ≤ 100, only lowercase letters and spaces.",
+  "exampleInput": "hello world",
+  "exampleOutput": "world hello",
+  "tests": [
+    {
+      "input": "hello world",
+      "output": "world hello"
+    },
+    {
+      "input": "the quick brown fox",
+      "output": "fox brown quick the"
+    },
+    {
+      "input": "one",
+      "output": "one",
+      "hidden": true
+    },
+    {
+      "input": "a b c d e",
+      "output": "e d c b a",
+      "hidden": true
+    },
+    {
+      "input": "code clash arena game",
+      "output": "game arena clash code",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 35,
+      "code": "line = input()\nprint(' '.join(reversed(line.split())))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 70,
+      "code": "#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char line[256];\n    fgets(line, sizeof(line), stdin);\n    int len = strlen(line);\n    if (len > 0 && line[len-1] == '\\n') line[--len] = '\\0';\n\n    char *words[64];\n    int count = 0;\n    char *tok = strtok(line, \" \");\n    while (tok) { words[count++] = tok; tok = strtok(NULL, \" \"); }\n\n    for (int i = count - 1; i >= 0; i--) {\n        if (i < count - 1) printf(\" \");\n        printf(\"%s\", words[i]);\n    }\n    printf(\"\\n\");\n    return 0;\n}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 120,
+      "code": "let () =\n  let line = input_line stdin in\n  let words = String.split_on_char ' ' line in\n  let rev = List.rev words in\n  print_string (String.concat \" \" rev);\n  print_newline ()"
+    },
+    {
+      "language": "python",
+      "submitDelay": 190,
+      "code": "words = input().split()\nwords.reverse()\nprint(' '.join(words))"
+    }
+  ],
+  "difficulty": "pre_bac",
+  "category": "math"
+}

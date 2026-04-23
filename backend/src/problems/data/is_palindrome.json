@@ -1,0 +1,54 @@
+{
+  "id": "is_palindrome",
+  "title": "Palindrome Check",
+  "description": "Given a string, determine if it is a palindrome (reads the same forwards and backwards). Ignore spaces and consider lowercase only.",
+  "inputSpec": "A single string (no newline issues, length ≤ 1000).",
+  "outputSpec": "YES if it is a palindrome, NO otherwise.",
+  "constraints": "Length ≤ 1000, only lowercase letters and spaces",
+  "exampleInput": "racecar",
+  "exampleOutput": "YES",
+  "difficulty": "pre_bac",
+  "category": "strings",
+  "tests": [
+    {
+      "input": "racecar",
+      "output": "YES"
+    },
+    {
+      "input": "hello",
+      "output": "NO"
+    },
+    {
+      "input": "amanaplanacanalpanama",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "abcba",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "abcd",
+      "output": "NO",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "s=input().replace(' ','').lower()\nprint('YES' if s==s[::-1] else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 40,
+      "code": "#include<stdio.h>\n#include<string.h>\n#include<ctype.h>\nint main(){char s[1001];fgets(s,sizeof(s),stdin);int n=strlen(s);if(s[n-1]=='\\n')s[--n]=0;for(int i=0;i<n/2;i++)if(tolower(s[i])!=tolower(s[n-1-i])){puts(\"NO\");return 0;}puts(\"YES\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 85,
+      "code": "let()=let s=input_line stdin in let s=String.lowercase_ascii s in let n=String.length s in let ok=ref true in for i=0 to n/2-1 do if s.[i]<>s.[n-1-i] then ok:=false done;print_endline(if !ok then\"YES\" else\"NO\")"
+    }
+  ]
+}

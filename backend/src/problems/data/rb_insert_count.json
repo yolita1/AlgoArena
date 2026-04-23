@@ -1,0 +1,54 @@
+{
+  "id": "rb_insert_count",
+  "title": "Arbre Rouge-Noir — Hauteur noire après insertions",
+  "description": "En insérant successivement les entiers 1, 2, ..., n dans un arbre rouge-noir (ABR équilibré), la hauteur noire b(n) croît très lentement.\n\nPour un entier n donné, détermine la hauteur noire b(n) de l'arbre rouge-noir obtenu en insérant 1, 2, ..., n. Sachant que b(n) = ⌊log₂(n+1)⌋.\n\nAttention : cette formule donne la hauteur noire uniquement pour des insertions en ordre croissant 1..n (cas parfaitement équilibré).",
+  "inputSpec": "Un entier n.",
+  "outputSpec": "La hauteur noire b(n) = ⌊log₂(n+1)⌋.",
+  "constraints": "1 ≤ n ≤ 10^9",
+  "exampleInput": "7",
+  "exampleOutput": "3",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "7",
+      "output": "3"
+    },
+    {
+      "input": "1",
+      "output": "1"
+    },
+    {
+      "input": "3",
+      "output": "2",
+      "hidden": true
+    },
+    {
+      "input": "15",
+      "output": "4",
+      "hidden": true
+    },
+    {
+      "input": "32767",
+      "output": "15",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 18,
+      "code": "import math\nn=int(input())\nprint(int(math.log2(n+1)))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 30,
+      "code": "#include<stdio.h>\n#include<math.h>\nint main(){long long n;scanf(\"%lld\",&n);printf(\"%d\\n\",(int)(log2(n+1)));}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 60,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let b=ref 0 in while (1 lsl(!b+1))-1<=n do incr b done;Printf.printf\"%d\\n\" !b"
+    }
+  ]
+}

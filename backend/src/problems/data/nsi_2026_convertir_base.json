@@ -1,0 +1,44 @@
+{
+  "id": "nsi_2026_convertir_base",
+  "title": "Conversion en binaire",
+  "description": "Convertir un entier positif en binaire, sans utiliser `bin()`.\n\nAlgorithme : diviser successivement par 2 et lire les restes à rebours.",
+  "inputSpec": "Un entier n ≥ 1.",
+  "outputSpec": "La représentation binaire de n.",
+  "constraints": "1 ≤ n ≤ 2^30",
+  "exampleInput": "13",
+  "exampleOutput": "1101",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "13",
+      "output": "1101"
+    },
+    {
+      "input": "1",
+      "output": "1"
+    },
+    {
+      "input": "8",
+      "output": "1000",
+      "hidden": true
+    },
+    {
+      "input": "255",
+      "output": "11111111",
+      "hidden": true
+    },
+    {
+      "input": "1024",
+      "output": "10000000000",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 15,
+      "code": "n=int(input())\nres=''\nwhile n>0:\n    res=str(n%2)+res\n    n//=2\nprint(res)"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_cribles",
+  "title": "Crible d'Ératosthène",
+  "description": "Le crible d'Ératosthène est un algorithme antique pour trouver tous les nombres premiers jusqu'à n.\n\nPrincipe : marquer les multiples de chaque nombre premier comme composés, en partant de 2.",
+  "inputSpec": "Un entier n.",
+  "outputSpec": "Les nombres premiers ≤ n, séparés par des espaces.",
+  "constraints": "2 ≤ n ≤ 100000",
+  "exampleInput": "20",
+  "exampleOutput": "2 3 5 7 11 13 17 19",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "20",
+      "output": "2 3 5 7 11 13 17 19"
+    },
+    {
+      "input": "10",
+      "output": "2 3 5 7"
+    },
+    {
+      "input": "2",
+      "output": "2",
+      "hidden": true
+    },
+    {
+      "input": "30",
+      "output": "2 3 5 7 11 13 17 19 23 29",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "n=int(input())\nif n<2:print()\nelse:\n    s=[True]*(n+1);s[0]=s[1]=False\n    i=2\n    while i*i<=n:\n        if s[i]:\n            for j in range(i*i,n+1,i):s[j]=False\n        i+=1\n    print(*[i for i in range(2,n+1) if s[i]])"
+    }
+  ]
+}

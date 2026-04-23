@@ -1,0 +1,45 @@
+{
+  "id": "avl_check",
+  "title": "AVL Balance Factor Check",
+  "description": "Given a binary tree (parent array + values), check if it is AVL-balanced: for every node, |height(left subtree) - height(right subtree)| ≤ 1.",
+  "inputSpec": "First line: n. Second line: n values. Third line: n parent indices (-1 = root). Fourth line: n child types: 0=left child, 1=right child, -1=root.",
+  "outputSpec": "YES if AVL-balanced, NO otherwise.",
+  "constraints": "1 ≤ n ≤ 1000",
+  "exampleInput": "7\n4 2 6 1 3 5 7\n-1 0 0 1 1 2 2\n-1 0 1 0 1 0 1",
+  "exampleOutput": "YES",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "7\n4 2 6 1 3 5 7\n-1 0 0 1 1 2 2\n-1 0 1 0 1 0 1",
+      "output": "YES"
+    },
+    {
+      "input": "3\n2 1 3\n-1 0 0\n-1 0 1",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "4\n5 3 7 1\n-1 0 0 1\n-1 0 1 0",
+      "output": "NO",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 50,
+      "code": "import sys\nsys.setrecursionlimit(10000)\nn=int(input())\nvals=list(map(int,input().split()))\nparents=list(map(int,input().split()))\nside=list(map(int,input().split()))\nleft=[-1]*n;right=[-1]*n;root=0\nfor i,p in enumerate(parents):\n    if p<0:root=i\n    elif side[i]==0:left[p]=i\n    else:right[p]=i\ndef h(u):\n    if u<0:return -1\n    lh=h(left[u]);rh=h(right[u])\n    if lh is None or rh is None:return None\n    if abs(lh-rh)>1:return None\n    return 1+max(lh,rh)\nprint('YES' if h(root) is not None else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 80,
+      "code": "#include<stdio.h>\n#define N 1001\nint l[N],r[N];\nint h(int u){if(u<0)return-1;int lh=h(l[u]),rh=h(r[u]);if(lh<-1||rh<-1)return-2;if(lh-rh>1||rh-lh>1)return-2;return 1+(lh>rh?lh:rh);}\nint main(){int n;scanf(\"%d\",&n);int v[N],p[N],s[N];for(int i=0;i<n;i++)scanf(\"%d\",&v[i]);for(int i=0;i<n;i++)scanf(\"%d\",&p[i]);for(int i=0;i<n;i++)scanf(\"%d\",&s[i]);int root=0;for(int i=0;i<n;i++){l[i]=r[i]=-1;}for(int i=0;i<n;i++){if(p[i]<0)root=i;else if(s[i]==0)l[p[i]]=i;else r[p[i]]=i;}puts(h(root)>=-1?\"YES\":\"NO\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 120,
+      "code": ""
+    }
+  ]
+}

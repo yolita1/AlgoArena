@@ -1,0 +1,49 @@
+{
+  "id": "tree_height",
+  "title": "Binary Tree Height",
+  "description": "Given a binary tree encoded as parent array (0-indexed, root has parent -1), compute its height (number of edges on the longest root-to-leaf path).",
+  "inputSpec": "First line: n. Second line: n integers p[0]..p[n-1] where p[i] is the parent of node i (-1 for root).",
+  "outputSpec": "The height of the tree.",
+  "constraints": "1 ≤ n ≤ 10000",
+  "exampleInput": "7\n-1 0 0 1 1 2 2",
+  "exampleOutput": "2",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "7\n-1 0 0 1 1 2 2",
+      "output": "2"
+    },
+    {
+      "input": "1\n-1",
+      "output": "0"
+    },
+    {
+      "input": "4\n-1 0 1 2",
+      "output": "3",
+      "hidden": true
+    },
+    {
+      "input": "5\n-1 0 0 1 2",
+      "output": "2",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 45,
+      "code": "import sys\nsys.setrecursionlimit(20000)\nn=int(input())\np=list(map(int,input().split()))\nchildren=[[] for _ in range(n)]\nroot=-1\nfor i,par in enumerate(p):\n    if par==-1:root=i\n    else:children[par].append(i)\ndef height(u):\n    if not children[u]:return 0\n    return 1+max(height(c) for c in children[u])\nprint(height(root))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 80,
+      "code": "#include<stdio.h>\n#include<string.h>\nint ch[10001][2],nc[10001],dep[10001];\nint main(){int n;scanf(\"%d\",&n);memset(nc,0,sizeof(nc));int root=-1;int par[10001];for(int i=0;i<n;i++){scanf(\"%d\",&par[i]);if(par[i]==-1)root=i;else{ch[par[i]][nc[par[i]]++]=i;}}int q[10001],front=0,back=0;q[back++]=root;dep[root]=0;int ans=0;while(front<back){int u=q[front++];if(dep[u]>ans)ans=dep[u];for(int j=0;j<nc[u];j++){dep[ch[u][j]]=dep[u]+1;q[back++]=ch[u][j];}}printf(\"%d\\n\",ans);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 130,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let p=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in let ch=Array.make n [] in let root=ref 0 in Array.iteri(fun i par->if par= -1 then root:=i else ch.(par)<-i::ch.(par))p;let rec h u=match ch.(u) with|[]->0|cs->1+List.fold_left(fun acc c->max acc(h c))0 cs in Printf.printf\"%d\\n\"(h !root)"
+    }
+  ]
+}

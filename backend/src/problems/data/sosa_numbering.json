@@ -1,0 +1,44 @@
+{
+  "id": "sosa_numbering",
+  "title": "Numérotation de Sosa",
+  "description": "La numérotation de Sosa attribue un numéro à chaque nœud d'un arbre binaire : la racine reçoit le numéro 1, et si un nœud a le numéro k, son fils gauche reçoit 2k et son fils droit reçoit 2k+1.\n\nÉtant donné un arbre en level-order, affiche les paires (numéro_sosa valeur) dans l'ordre BFS, séparées par des espaces.",
+  "inputSpec": "Une ligne : encodage level-order de l'arbre (valeurs entières et 'N').",
+  "outputSpec": "Les paires (sosa,val) dans l'ordre BFS, séparées par des espaces. Format : 'sosa:val'.",
+  "constraints": "1 ≤ nœuds ≤ 1000",
+  "exampleInput": "4 1 6 2 3 5 7",
+  "exampleOutput": "1:4 2:1 3:6 4:2 5:3 6:5 7:7",
+  "difficulty": "post_bac",
+  "category": "trees",
+  "tests": [
+    {
+      "input": "4 1 6 2 3 5 7",
+      "output": "1:4 2:1 3:6 4:2 5:3 6:5 7:7"
+    },
+    {
+      "input": "42",
+      "output": "1:42"
+    },
+    {
+      "input": "1 2 3 N N 6 7",
+      "output": "1:1 2:2 3:3 6:6 7:7",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 35,
+      "code": "from collections import deque\nvals=input().split()\nn=len(vals)\nres=[]\nq=deque([(0,1)])\nwhile q:\n    i,sosa=q.popleft()\n    if i>=n or vals[i]=='N':continue\n    res.append(f'{sosa}:{vals[i]}')\n    q.append((2*i+1,2*sosa))\n    q.append((2*i+2,2*sosa+1))\nprint(*res)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 60,
+      "code": "#include<stdio.h>\n#include<string.h>\nchar v[1001][12];int n=0,qi[1001],qs[1001],qf=0,qb=0;\nint main(){while(scanf(\"%s\",v[n])==1)n++;qi[qb]=0;qs[qb++]=1;int f=1;while(qf<qb){int i=qi[qf],s=qs[qf++];if(i>=n||strcmp(v[i],\"N\")==0)continue;if(!f)printf(\" \");printf(\"%d:%s\",s,v[i]);f=0;qi[qb]=2*i+1;qs[qb++]=2*s;qi[qb]=2*i+2;qs[qb++]=2*s+1;}printf(\"\\n\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": ""
+    }
+  ]
+}

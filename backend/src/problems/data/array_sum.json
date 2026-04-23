@@ -1,0 +1,54 @@
+{
+  "id": "array_sum",
+  "title": "Sum of an Array",
+  "description": "Given an array of n integers, compute their sum.",
+  "inputSpec": "First line: n. Second line: n space-separated integers.",
+  "outputSpec": "The sum of all elements.",
+  "constraints": "1 ≤ n ≤ 10000, −10⁶ ≤ a[i] ≤ 10⁶",
+  "exampleInput": "5\n1 2 3 4 5",
+  "exampleOutput": "15",
+  "difficulty": "pre_bac",
+  "category": "math",
+  "tests": [
+    {
+      "input": "5\n1 2 3 4 5",
+      "output": "15"
+    },
+    {
+      "input": "3\n-1 0 1",
+      "output": "0"
+    },
+    {
+      "input": "1\n42",
+      "output": "42",
+      "hidden": true
+    },
+    {
+      "input": "4\n100 200 300 400",
+      "output": "1000",
+      "hidden": true
+    },
+    {
+      "input": "6\n-5 -3 0 3 5 10",
+      "output": "10",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "n=int(input())\na=list(map(int,input().split()))\nprint(sum(a))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 40,
+      "code": "#include<stdio.h>\nint main(){int n;scanf(\"%d\",&n);long long s=0,x;for(int i=0;i<n;i++){scanf(\"%lld\",&x);s+=x;}printf(\"%lld\\n\",s);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let s=ref 0 in for _=1 to n do s:= !s+Scanf.scanf\" %d\" Fun.id done;Printf.printf\"%d\\n\" !s"
+    }
+  ]
+}

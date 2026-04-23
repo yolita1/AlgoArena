@@ -1,0 +1,54 @@
+{
+  "id": "matrix_power",
+  "title": "Fast Exponentiation — Power mod",
+  "description": "Given three integers a, b, and m, compute a^b mod m efficiently using fast exponentiation (binary exponentiation).",
+  "inputSpec": "Three integers on one line: a b m.",
+  "outputSpec": "a^b mod m.",
+  "constraints": "0 ≤ a,b ≤ 10^9, 1 ≤ m ≤ 10^9",
+  "exampleInput": "2 10 1000",
+  "exampleOutput": "24",
+  "difficulty": "post_bac",
+  "category": "math",
+  "tests": [
+    {
+      "input": "2 10 1000",
+      "output": "24"
+    },
+    {
+      "input": "3 0 7",
+      "output": "1"
+    },
+    {
+      "input": "0 5 100",
+      "output": "0",
+      "hidden": true
+    },
+    {
+      "input": "2 62 1000000007",
+      "output": "145586002",
+      "hidden": true
+    },
+    {
+      "input": "999999999 999999999 1000000007",
+      "output": "178920257",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 25,
+      "code": "a,b,m=map(int,input().split())\nprint(pow(a,b,m))"
+    },
+    {
+      "language": "c",
+      "submitDelay": 50,
+      "code": "#include<stdio.h>\ntypedef unsigned long long ull;\null powmod(ull a,ull b,ull m){ull r=1;a%=m;while(b>0){if(b&1)r=(__uint128_t)r*a%m;a=(__uint128_t)a*a%m;b>>=1;}return r;}\nint main(){ull a,b,m;scanf(\"%llu %llu %llu\",&a,&b,&m);printf(\"%llu\\n\",powmod(a,b,m));}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": "let powmod a b m =\n  let r = ref 1 and a = ref (a mod m) and b = ref b in\n  while !b > 0 do\n    if !b land 1 = 1 then r := !r * !a mod m;\n    a := !a * !a mod m;\n    b := !b asr 1\n  done; !r\nlet () =\n  let a = Scanf.scanf \" %d\" Fun.id and b = Scanf.scanf \" %d\" Fun.id\n  and m = Scanf.scanf \" %d\" Fun.id in\n  Printf.printf \"%d\\n\" (powmod a b m)"
+    }
+  ]
+}

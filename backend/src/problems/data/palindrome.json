@@ -1,0 +1,74 @@
+{
+  "id": "palindrome",
+  "title": "Palindrome",
+  "description": "Given a string, determine whether it is a palindrome (reads the same forwards and backwards, ignoring case and non-alphanumeric characters). Print YES or NO.",
+  "inputSpec": "A single string (1 to 200 characters).",
+  "outputSpec": "YES if the string is a palindrome, NO otherwise.",
+  "constraints": "1 ≤ length ≤ 200. The string may contain letters, digits, spaces and punctuation.",
+  "exampleInput": "A man a plan a canal Panama",
+  "exampleOutput": "YES",
+  "tests": [
+    {
+      "input": "A man a plan a canal Panama",
+      "output": "YES"
+    },
+    {
+      "input": "hello",
+      "output": "NO"
+    },
+    {
+      "input": "racecar",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "Was it a car or a cat I saw",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "Not a palindrome",
+      "output": "NO",
+      "hidden": true
+    },
+    {
+      "input": "a",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "Never odd or even",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "ab",
+      "output": "NO",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 42,
+      "code": "import re\ns = re.sub(r'[^a-z0-9]', '', input().lower())\nprint('YES' if s == s[::-1] else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 78,
+      "code": "#include <stdio.h>\n#include <string.h>\n#include <ctype.h>\n\nint main() {\n    char line[512], clean[512];\n    fgets(line, sizeof(line), stdin);\n    int j = 0;\n    for (int i = 0; line[i]; i++)\n        if (isalnum((unsigned char)line[i]))\n            clean[j++] = tolower((unsigned char)line[i]);\n    clean[j] = '\\0';\n    int ok = 1;\n    for (int i = 0; i < j / 2; i++)\n        if (clean[i] != clean[j-1-i]) { ok = 0; break; }\n    printf(\"%s\\n\", ok ? \"YES\" : \"NO\");\n    return 0;\n}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 135,
+      "code": "let () =\n  let line = input_line stdin in\n  let s = String.concat \"\" (\n    List.filter_map (fun c ->\n      if (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') then Some (String.make 1 c)\n      else if c >= 'A' && c <= 'Z' then Some (String.make 1 (Char.lowercase_ascii c))\n      else None\n    ) (List.init (String.length line) (String.get line))\n  ) in\n  let n = String.length s in\n  let ok = ref true in\n  for i = 0 to n/2 - 1 do\n    if s.[i] <> s.[n-1-i] then ok := false\n  done;\n  print_string (if !ok then \"YES\" else \"NO\");\n  print_newline ()"
+    },
+    {
+      "language": "python",
+      "submitDelay": 210,
+      "code": "line = input()\nclean = ''.join(c.lower() for c in line if c.isalnum())\nif clean == clean[::-1]:\n    print('YES')\nelse:\n    print('NO')"
+    }
+  ],
+  "difficulty": "pre_bac",
+  "category": "math"
+}

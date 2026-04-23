@@ -1,0 +1,41 @@
+# ── Build stage ───────────────────────────────────────────────────────────────
+FROM node:20-alpine AS builder
+
+ARG VITE_BACKEND_URL=http://localhost:3001
+ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+# ── Static serving with nginx ─────────────────────────────────────────────────
+FROM nginx:alpine AS runtime
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# nginx config: SPA routing (404 → index.html) + gzip
+RUN cat > /etc/nginx/conf.d/default.conf << 'EOF'
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html;
+    gzip on;
+    gzip_types text/plain text/css application/javascript application/json;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Cache static assets aggressively
+    location ~* \.(js|css|png|svg|ico|woff2?)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+}
+EOF
+
+EXPOSE 80

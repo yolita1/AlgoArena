@@ -1,0 +1,49 @@
+{
+  "id": "kth_largest",
+  "title": "K Largest Elements",
+  "description": "Given n integers and k, output the k largest elements in non-decreasing order.",
+  "inputSpec": "First line: n and k. Second line: n integers.",
+  "outputSpec": "The k largest elements in non-decreasing order.",
+  "constraints": "1 ≤ k ≤ n ≤ 100000, −10⁹ ≤ a[i] ≤ 10⁹",
+  "exampleInput": "7 3\n3 1 4 1 5 9 2",
+  "exampleOutput": "4 5 9",
+  "difficulty": "post_bac",
+  "category": "sorting",
+  "tests": [
+    {
+      "input": "7 3\n3 1 4 1 5 9 2",
+      "output": "4 5 9"
+    },
+    {
+      "input": "5 1\n1 2 3 4 5",
+      "output": "5"
+    },
+    {
+      "input": "4 4\n4 3 2 1",
+      "output": "1 2 3 4",
+      "hidden": true
+    },
+    {
+      "input": "3 2\n-1 0 1",
+      "output": "0 1",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 35,
+      "code": "n,k=map(int,input().split())\na=list(map(int,input().split()))\na.sort()\nprint(*a[n-k:])"
+    },
+    {
+      "language": "c",
+      "submitDelay": 60,
+      "code": "#include<stdio.h>\n#include<stdlib.h>\nint cmp(const void*a,const void*b){return*(int*)a-*(int*)b;}\nint main(){int n,k;scanf(\"%d %d\",&n,&k);int a[100001];for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);qsort(a,n,sizeof(int),cmp);for(int i=n-k;i<n;i++)printf(\"%d%c\",a[i],i<n-1?' ':'\\n');}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 100,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id and k=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in Array.sort compare a;for i=n-k to n-1 do Printf.printf\"%d%c\" a.(i)(if i<n-1 then ' ' else '\\n') done"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "fix_fibonacci",
+  "title": "Fix the Fibonacci — Stack Overflow",
+  "description": "The following recursive Fibonacci overflows for large inputs. Rewrite it iteratively to handle n up to 10^6 and output F(n) mod 10^9+7.",
+  "inputSpec": "A single integer n.",
+  "outputSpec": "F(n) modulo 10⁹+7.",
+  "constraints": "0 ≤ n ≤ 1000000",
+  "exampleInput": "10",
+  "exampleOutput": "55",
+  "difficulty": "pre_bac",
+  "category": "dynamic_programming",
+  "tests": [
+    {
+      "input": "10",
+      "output": "55"
+    },
+    {
+      "input": "0",
+      "output": "0"
+    },
+    {
+      "input": "1",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "100",
+      "output": "354224848179261915075",
+      "hidden": true
+    },
+    {
+      "input": "1000000",
+      "output": "195328212",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 25,
+      "code": "n=int(input())\nMOD=10**9+7\nif n==0:print(0)\nelif n==1:print(1)\nelse:\n    a,b=0,1\n    for _ in range(n-1):a,b=b,(a+b)%MOD\n    print(b)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 45,
+      "code": "#include<stdio.h>\n#define MOD 1000000007LL\nint main(){int n;scanf(\"%d\",&n);if(n==0){puts(\"0\");return 0;}long long a=0,b=1;for(int i=1;i<n;i++){long long c=(a+b)%MOD;a=b;b=c;}printf(\"%lld\\n\",b);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let md=1000000007 in if n=0 then print_string\"0\\n\" else begin let a=ref 0 and b=ref 1 in for _=1 to n-1 do let c=(!a + !b) mod md in a:= !b;b:=c done;Printf.printf\"%d\\n\" !b end"
+    }
+  ],
+  "isBuggyCode": true,
+  "buggyCode": {
+    "python": "# BUG: exponential time + stack overflow for large n\ndef fib(n):\n    if n <= 1: return n\n    return fib(n-1) + fib(n-2)\n\nn = int(input())\nprint(fib(n) % (10**9 + 7))",
+    "c": "// BUG: exponential time O(2^n)\n#include <stdio.h>\nlong long fib(int n) {\n    if (n <= 1) return n;\n    return fib(n-1) + fib(n-2);  // no memoization!\n}\nint main() {\n    int n; scanf(\"%d\", &n);\n    printf(\"%lld\\n\", fib(n) % 1000000007);\n}",
+    "ocaml": ""
+  }
+}

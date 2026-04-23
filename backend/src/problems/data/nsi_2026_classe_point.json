@@ -1,0 +1,39 @@
+{
+  "id": "nsi_2026_classe_point",
+  "title": "Distance entre deux points",
+  "description": "Calculer la distance euclidienne entre deux points A(xA, yA) et B(xB, yB) :\n\nd(A,B) = √((xB-xA)² + (yB-yA)²)",
+  "inputSpec": "Quatre entiers : xA yA xB yB.",
+  "outputSpec": "La distance arrondie à 2 décimales.",
+  "constraints": "Coordonnées entre -1000 et 1000",
+  "exampleInput": "0 0 3 4",
+  "exampleOutput": "5.0",
+  "difficulty": "bac_nsi",
+  "category": "math",
+  "tests": [
+    {
+      "input": "0 0 3 4",
+      "output": "5.0"
+    },
+    {
+      "input": "0 0 0 0",
+      "output": "0.0"
+    },
+    {
+      "input": "1 1 4 5",
+      "output": "5.0",
+      "hidden": true
+    },
+    {
+      "input": "0 0 1 1",
+      "output": "1.41",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 18,
+      "code": "xa,ya,xb,yb=map(int,input().split())\nimport math\nd=math.sqrt((xb-xa)**2+(yb-ya)**2)\nprint(round(d,2) if d!=round(d) else f'{d:.1f}')"
+    }
+  ]
+}

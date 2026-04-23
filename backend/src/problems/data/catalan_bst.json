@@ -1,0 +1,54 @@
+{
+  "id": "catalan_bst",
+  "title": "Count BST Shapes (Catalan Numbers)",
+  "description": "The number of distinct binary search tree shapes with n distinct keys is the n-th Catalan number:\nC(n) = C(2n,n) / (n+1)\n\nCompute C(n) modulo 10^9+7.",
+  "inputSpec": "A single integer n.",
+  "outputSpec": "C(n) mod 10^9+7.",
+  "constraints": "0 ≤ n ≤ 1000",
+  "exampleInput": "5",
+  "exampleOutput": "42",
+  "difficulty": "post_bac",
+  "category": "math",
+  "tests": [
+    {
+      "input": "5",
+      "output": "42"
+    },
+    {
+      "input": "0",
+      "output": "1"
+    },
+    {
+      "input": "1",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "10",
+      "output": "16796",
+      "hidden": true
+    },
+    {
+      "input": "20",
+      "output": "6564120420",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 30,
+      "code": "MOD=10**9+7\nn=int(input())\nif n==0:print(1)\nelse:\n    # C(n) = C(2n,n)/(n+1) using DP\n    # Catalan: C(0)=1, C(n+1) = C(n)*2*(2n+1)//(n+2)\n    c=1\n    for i in range(n):\n        c=c*2*(2*i+1)*pow(i+2,MOD-2,MOD)%MOD\n    print(c)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 55,
+      "code": "#include<stdio.h>\n#define MOD 1000000007LL\nlong long pw(long long a,long long b){long long r=1;a%=MOD;while(b>0){if(b&1)r=r*a%MOD;a=a*a%MOD;b>>=1;}return r;}\nint main(){int n;scanf(\"%d\",&n);long long c=1;for(int i=0;i<n;i++)c=c*2%(MOD)*(2*i+1)%MOD*pw(i+2,MOD-2)%MOD;printf(\"%lld\\n\",c);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 90,
+      "code": "let md=1000000007\nlet pw a b=let r=ref 1 and a=ref(a mod md) and b=ref b in while !b>0 do if !b land 1=1 then r:= !r * !a mod md;a:= !a * !a mod md;b:= !b asr 1 done;!r\nlet()=let n=Scanf.scanf\" %d\" Fun.id in let c=ref 1 in for i=0 to n-1 do c:= !c*2 mod md*(2*i+1) mod md*(pw(i+2)(md-2)) mod md done;Printf.printf\"%d\\n\" !c"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "fibonacci",
+  "title": "Fibonacci Sum",
+  "description": "Given an integer n, compute the sum of the first n Fibonacci numbers. The Fibonacci sequence starts: 1, 1, 2, 3, 5, 8, 13, ... F(1)=1, F(2)=1, F(k)=F(k-1)+F(k-2).",
+  "inputSpec": "A single integer n.",
+  "outputSpec": "The sum of F(1) + F(2) + ... + F(n).",
+  "constraints": "1 ≤ n ≤ 50",
+  "exampleInput": "5",
+  "exampleOutput": "12",
+  "tests": [
+    {
+      "input": "1",
+      "output": "1"
+    },
+    {
+      "input": "5",
+      "output": "12"
+    },
+    {
+      "input": "10",
+      "output": "143",
+      "hidden": true
+    },
+    {
+      "input": "2",
+      "output": "2",
+      "hidden": true
+    },
+    {
+      "input": "20",
+      "output": "17710",
+      "hidden": true
+    },
+    {
+      "input": "50",
+      "output": "20365011073",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 40,
+      "code": "n = int(input())\na, b = 1, 1\ntotal = 0\nfor _ in range(n):\n    total += a\n    a, b = b, a + b\nprint(total)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 75,
+      "code": "#include <stdio.h>\n\nint main() {\n    int n;\n    scanf(\"%d\", &n);\n    long long a = 1, b = 1, total = 0;\n    for (int i = 0; i < n; i++) {\n        total += a;\n        long long tmp = a + b;\n        a = b;\n        b = tmp;\n    }\n    printf(\"%lld\\n\", total);\n    return 0;\n}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 130,
+      "code": "let () =\n  let n = Scanf.scanf \" %d\" Fun.id in\n  let a = ref 1L and b = ref 1L and total = ref 0L in\n  for _ = 1 to n do\n    total := Int64.add !total !a;\n    let tmp = Int64.add !a !b in\n    a := !b;\n    b := tmp\n  done;\n  Printf.printf \"%Ld\\n\" !total"
+    },
+    {
+      "language": "python",
+      "submitDelay": 200,
+      "code": "n = int(input())\nfibs = [1, 1]\nfor i in range(2, n):\n    fibs.append(fibs[-1] + fibs[-2])\nprint(sum(fibs[:n]))"
+    }
+  ],
+  "difficulty": "pre_bac",
+  "category": "math"
+}

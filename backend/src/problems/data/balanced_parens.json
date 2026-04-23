@@ -1,0 +1,59 @@
+{
+  "id": "balanced_parens",
+  "title": "Balanced Parentheses",
+  "description": "Given a string containing only '(', ')', '[', ']', '{', '}', determine if the brackets are correctly balanced and nested.",
+  "inputSpec": "A single string.",
+  "outputSpec": "YES if balanced, NO otherwise.",
+  "constraints": "Length ≤ 10000",
+  "exampleInput": "({[]})",
+  "exampleOutput": "YES",
+  "difficulty": "post_bac",
+  "category": "stacks",
+  "tests": [
+    {
+      "input": "({[]})",
+      "output": "YES"
+    },
+    {
+      "input": "([)]",
+      "output": "NO"
+    },
+    {
+      "input": "",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "((()))",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "{[}]",
+      "output": "NO",
+      "hidden": true
+    },
+    {
+      "input": "(((",
+      "output": "NO",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 28,
+      "code": "s=input()\nstack=[]\npairs={'(':')','[':']','{':'}'}\nfor c in s:\n    if c in pairs:stack.append(pairs[c])\n    elif stack and c==stack[-1]:stack.pop()\n    else:print('NO');exit()\nprint('YES' if not stack else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 55,
+      "code": "#include<stdio.h>\n#include<string.h>\nchar match(char c){return c==')'?'(':c==']'?'[':'{';}  \nint main(){char s[10001];fgets(s,sizeof(s),stdin);int n=strlen(s),top=0;char st[10001];for(int i=0;i<n;i++){char c=s[i];if(c=='('||c=='['||c=='{')st[top++]=c;else if(c==')'||c==']'||c=='}'){if(!top||st[top-1]!=match(c)){puts(\"NO\");return 0;}top--;}}puts(top?\"NO\":\"YES\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 100,
+      "code": "let()=let s=try input_line stdin with End_of_file->\"\" in let st=Stack.create() in let ok=ref true in String.iter(fun c->if c='('||c='['||c='{'then Stack.push c st else if c=')'||c=']'||c='}'then(if Stack.is_empty st then ok:=false else let t=Stack.pop st in if not((c=')'&&t='(')||(c=']'&&t='[')||(c='}'&&t='{'))then ok:=false))s;if not(Stack.is_empty st)then ok:=false;print_endline(if !ok then\"YES\" else\"NO\")"
+    }
+  ]
+}

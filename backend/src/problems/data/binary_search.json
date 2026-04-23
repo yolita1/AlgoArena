@@ -1,0 +1,54 @@
+{
+  "id": "binary_search",
+  "title": "Binary Search",
+  "description": "Given a sorted array of n integers and a target t, determine if t is present. Use binary search.",
+  "inputSpec": "First line: n and t. Second line: n sorted integers.",
+  "outputSpec": "YES if present, NO otherwise.",
+  "constraints": "1 ≤ n ≤ 100000, −10⁹ ≤ values ≤ 10⁹",
+  "exampleInput": "5 3\n1 2 3 4 5",
+  "exampleOutput": "YES",
+  "difficulty": "pre_bac",
+  "category": "search",
+  "tests": [
+    {
+      "input": "5 3\n1 2 3 4 5",
+      "output": "YES"
+    },
+    {
+      "input": "5 6\n1 2 3 4 5",
+      "output": "NO"
+    },
+    {
+      "input": "1 1\n1",
+      "output": "YES",
+      "hidden": true
+    },
+    {
+      "input": "4 0\n1 2 3 4",
+      "output": "NO",
+      "hidden": true
+    },
+    {
+      "input": "6 4\n1 2 3 4 5 6",
+      "output": "YES",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 22,
+      "code": "n,t=map(int,input().split())\na=list(map(int,input().split()))\nlo,hi=0,n-1\nfound=False\nwhile lo<=hi:\n    mid=(lo+hi)//2\n    if a[mid]==t:found=True;break\n    elif a[mid]<t:lo=mid+1\n    else:hi=mid-1\nprint('YES' if found else 'NO')"
+    },
+    {
+      "language": "c",
+      "submitDelay": 42,
+      "code": "#include<stdio.h>\nint main(){int n,t;scanf(\"%d %d\",&n,&t);int a[100001];for(int i=0;i<n;i++)scanf(\"%d\",&a[i]);int lo=0,hi=n-1;while(lo<=hi){int m=(lo+hi)/2;if(a[m]==t){puts(\"YES\");return 0;}else if(a[m]<t)lo=m+1;else hi=m-1;}puts(\"NO\");}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 88,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id and t=Scanf.scanf\" %d\" Fun.id in let a=Array.init n(fun _->Scanf.scanf\" %d\" Fun.id) in let lo=ref 0 and hi=ref(n-1) and found=ref false in while !lo <= !hi&&not !found do let m=(!lo + !hi)/2 in if a.(m)=t then found:=true else if a.(m)<t then lo:=m+1 else hi:=m-1 done;print_endline(if !found then\"YES\" else\"NO\")"
+    }
+  ]
+}

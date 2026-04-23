@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ArèneduCode — Admin</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f17;--bg1:#111827;--bg2:#151e2e;--bg3:#1a2540;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+  --green:#22C55E;--red:#EF4444;--amber:#F59E0B;--blue:#3B82F6;--purple:#A855F7;
+  --text:#E2E8F0;--text2:#94A3B8;--text3:#475569;
+}
+body{background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;font-size:14px}
+.top{background:var(--bg1);border-bottom:1px solid var(--border);padding:0 20px;height:50px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
+.top h1{font-size:15px;font-weight:700}.top h1 span{color:var(--red)}
+.wrap{max-width:1200px;margin:0 auto;padding:16px 20px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:20px}
+.stat{background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:12px}
+.stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.stat-v{font-family:monospace;font-size:22px;font-weight:700}
+.tabs{display:flex;gap:2px;background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:3px;margin-bottom:14px;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:5px;border:none;cursor:pointer;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;background:transparent;color:var(--text2);transition:all .15s;font-family:inherit}
+.tab.active{background:var(--bg3);color:var(--text)}
+.tbadge{background:var(--red);color:#fff;border-radius:10px;padding:1px 5px;font-size:9px;margin-left:4px}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:8px 10px;font-size:12px}
+th{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--bg2)}
+td{border-bottom:1px solid var(--border)}
+.badge{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:700;display:inline-block}
+.g{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.r{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.a{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.3)}
+.p{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.3)}
+.gr{background:rgba(148,163,184,.1);color:var(--text2);border:1px solid var(--border2)}
+.btn{padding:4px 9px;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid;font-family:inherit;transition:all .15s}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.br{background:transparent;color:var(--red);border-color:rgba(239,68,68,.35)}.br:hover:not(:disabled){background:rgba(239,68,68,.1)}
+.bg_{background:transparent;color:var(--green);border-color:rgba(34,197,94,.35)}.bg_:hover:not(:disabled){background:rgba(34,197,94,.08)}
+.bb{background:transparent;color:var(--blue);border-color:rgba(59,130,246,.35)}.bb:hover:not(:disabled){background:rgba(59,130,246,.08)}
+.ba{background:transparent;color:var(--amber);border-color:rgba(245,158,11,.35)}.ba:hover:not(:disabled){background:rgba(245,158,11,.08)}
+.bgh{background:transparent;color:var(--text2);border-color:var(--border2)}.bgh:hover:not(:disabled){background:var(--bg3);color:var(--text)}
+input.src{background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:13px;font-family:inherit;outline:none;width:220px}
+input.src:focus{border-color:var(--blue)}
+select.src{background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:13px;font-family:inherit;outline:none}
+.rcard{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px}
+.rcard.done{opacity:.5}
+.rmsg{font-size:12px;color:var(--text2);margin:6px 0;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.sh{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.sh h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text2)}
+.clip{max-width:350px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;color:var(--text3)}
+.mono{font-family:monospace;font-size:11px}
+.load{color:var(--text3);font-size:13px;padding:24px;text-align:center}
+#toast{position:fixed;bottom:18px;right:18px;padding:9px 15px;border-radius:8px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:100}
+#toast.show{opacity:1}
+#toast.ok{background:#0f2e1c;border:1px solid var(--green);color:var(--green)}
+#toast.err{background:#2e0f0f;border:1px solid var(--red);color:var(--red)}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>Arène<span>duCode</span> <span class="badge r">ADMIN</span></h1>
+  <span id="env" class="badge g" style="margin-left:auto;font-size:10px"></span>
+</div>
+<div class="wrap">
+  <div class="stats" id="sg"><div class="load">Loading…</div></div>
+  <div class="tabs">
+    <button class="tab active" onclick="sw('users',this)">👥 Users</button>
+    <button class="tab" onclick="sw('proposals',this)">📝 Proposals <span class="tbadge" id="pb" style="display:none"></span></button>
+    <button class="tab" onclick="sw('reports',this)">🚩 Reports <span class="tbadge" id="rb" style="display:none"></span></button>
+    <button class="tab" onclick="sw('library',this)">📚 Library</button>
+  </div>
+
+  <div id="tu">
+    <div class="sh"><h2>Users</h2>
+      <input class="src" id="uq" placeholder="Search…" oninput="lu()">
+      <select class="src" id="uf" onchange="lu()" style="width:auto">
+        <option value="">All</option><option value="banned">Banned</option><option value="admin">Admins</option>
+      </select>
+    </div>
+    <div id="ut"><div class="load">Loading…</div></div>
+  </div>
+
+  <div id="tp" style="display:none">
+    <div class="sh"><h2>Problem proposals</h2></div>
+    <div id="pt"><div class="load">Loading…</div></div>
+  </div>
+
+  <div id="tr" style="display:none">
+    <div class="sh"><h2>Reports</h2>
+      <select class="src" id="rf" onchange="lr()" style="width:auto">
+        <option value="">All</option><option value="bug">Bugs</option>
+        <option value="problem">Problem issues</option><option value="open">Open only</option>
+      </select>
+    </div>
+    <div id="rl"><div class="load">Loading…</div></div>
+  </div>
+
+  <div id="tl" style="display:none">
+    <div class="sh"><h2>All built-in + approved problems</h2>
+      <select class="src" id="lf" onchange="ll()" style="width:auto">
+        <option value="">All</option><option value="pre_bac">Pre-Bac</option><option value="post_bac">Post-Bac</option>
+      </select>
+    </div>
+    <div id="lt"><div class="load">Loading…</div></div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+const SECRET = location.pathname.split('/admin-panel/')[1]?.split('/')[0]||'';
+const A = `${location.origin}/admin-panel/${SECRET}`;
+
+function toast(m,t='ok'){const e=document.getElementById('toast');e.textContent=m;e.className=`show ${t}`;setTimeout(()=>{e.className=''},2600);}
+
+async function api(p,method='GET',body){
+  const o={method,headers:{'Content-Type':'application/json'}};
+  if(body) o.body=JSON.stringify(body);
+  const r=await fetch(A+p,o);
+  const d=await r.json();
+  if(!r.ok) throw new Error(d.error||'Request failed');
+  return d;
+}
+
+// ─── STATS ────────────────────────────────────────────────────────────────────
+async function ls(){
+  try{
+    const d=await api('/stats');
+    document.getElementById('env').textContent=d.env==='production'?'🟢 Production':'🟡 Dev';
+    document.getElementById('sg').innerHTML=[
+      ['Users',d.users.total,''],['Active',d.users.active,'color:var(--green)'],
+      ['Banned',d.users.banned,d.users.banned?'color:var(--red)':''],
+      ['Admins',d.users.admins,'color:var(--amber)'],
+      ['Problems',d.problems.total,''],['Approved',d.problems.approved,'color:var(--green)'],
+      ['Pending',d.problems.pending,d.problems.pending?'color:var(--amber)':''],
+      ['Reports (open)',d.reports.open,d.reports.open?'color:var(--red)':''],
+    ].map(([l,v,s])=>`<div class="stat"><div class="stat-l">${l}</div><div class="stat-v" style="${s}">${v}</div></div>`).join('');
+    if(d.problems.pending>0){const b=document.getElementById('pb');b.textContent=d.problems.pending;b.style.display='';}
+    if(d.reports.open>0){const b=document.getElementById('rb');b.textContent=d.reports.open;b.style.display='';}
+  }catch(e){console.error(e);}
+}
+
+// ─── USERS ────────────────────────────────────────────────────────────────────
+async function lu(){
+  const q=document.getElementById('uq').value,f=document.getElementById('uf').value;
+  try{
+    const d=await api(`/users?q=${encodeURIComponent(q)}&limit=200`);
+    let us=d.users;
+    if(f==='banned')us=us.filter(u=>u.banned);
+    if(f==='admin')us=us.filter(u=>u.isAdmin);
+    document.getElementById('ut').innerHTML=`
+    <table><thead><tr><th>Username</th><th>Email</th><th>Level</th><th>School</th><th>LP</th><th>G.Played/Won</th><th>🔥</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>${us.map(u=>`<tr>
+      <td><b>${u.username}</b>${u.isAdmin?' <span class="badge a">ADMIN</span>':''}</td>
+      <td class="mono">${u.email||'—'}</td>
+      <td><span class="badge ${u.level==='post_bac'?'p':'gr'}">${u.level==='post_bac'?'Post-Bac':'Pre-Bac'}</span></td>
+      <td style="max-width:120px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${u.establishment||'—'}</td>
+      <td class="mono">${u.totalLp||0}</td>
+      <td class="mono">${u.gamesPlayed||0}/${u.gamesWon||0}</td>
+      <td>${u.streak||0}</td>
+      <td>${u.banned?'<span class="badge r">Banned</span>':'<span class="badge g">Active</span>'}</td>
+      <td style="display:flex;gap:4px;flex-wrap:wrap">
+        ${u.banned?`<button class="btn bg_" onclick="act('unban','${u.id}','${u.username}')">Unban</button>`
+                  :`<button class="btn br" onclick="act('ban','${u.id}','${u.username}')" ${u.isAdmin?'disabled':''}>Ban</button>`}
+        ${!u.isAdmin?`<button class="btn ba" onclick="act('promote','${u.id}','${u.username}')">→Admin</button>`:''}
+        <button class="btn bgh" onclick="navigator.clipboard.writeText('${u.id}');toast('ID copied')">📋</button>
+      </td>
+    </tr>`).join('')}</tbody></table>
+    <div style="font-size:11px;color:var(--text3);margin-top:6px">${d.total} users · showing ${us.length}</div>`;
+  }catch(e){document.getElementById('ut').innerHTML=`<div class="load" style="color:var(--red)">${e.message}</div>`;}
+}
+
+async function act(action,id,name){
+  if(action==='ban'&&!confirm(`Ban ${name}?`))return;
+  if(action==='promote'&&!confirm(`Make ${name} admin?`))return;
+  const method=action==='delete'?'DELETE':'POST';
+  try{const r=await api(`/users/${id}/${action}`,method);toast(r.message);lu();ls();}catch(e){toast(e.message,'err');}
+}
+
+// ─── PROPOSALS ───────────────────────────────────────────────────────────────
+async function lp(){
+  try{
+    const d=await api('/problems/pending');
+    if(!d.count){document.getElementById('pt').innerHTML='<div class="load">✓ No pending proposals</div>';return;}
+    document.getElementById('pt').innerHTML=`
+    <table><thead><tr><th>Title</th><th>Level</th><th>Category</th><th>Author</th><th>Description</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>${d.problems.map(p=>`<tr>
+      <td><b>${p.title}</b></td>
+      <td><span class="badge ${p.difficulty==='post_bac'?'p':'gr'}">${p.difficulty==='post_bac'?'Post-Bac':'Pre-Bac'}</span></td>
+      <td class="mono">${p.category||'—'}</td>
+      <td class="mono">${(p.authorId||'anon').slice(0,8)}…</td>
+      <td><div class="clip">${(p.description||'').replace(/</g,'&lt;')}</div></td>
+      <td class="mono">${(p.createdAt||'').split('T')[0]}</td>
+      <td style="display:flex;gap:4px">
+        <button class="btn bg_" onclick="probAct('approve','${p.id}')">✓ Approve</button>
+        <button class="btn br" onclick="probAct('reject','${p.id}','${p.title.replace(/'/g,'')}')">✕ Reject</button>
+      </td>
+    </tr>`).join('')}</tbody></table>`;
+  }catch(e){document.getElementById('pt').innerHTML=`<div class="load" style="color:var(--red)">${e.message}</div>`;}
+}
+
+async function probAct(action,id,title=''){
+  if(action==='reject'&&!confirm(`Reject "${title}"? This is permanent.`))return;
+  try{const r=await api(`/problems/${id}/${action}`,'POST');toast(r.message);lp();ls();}catch(e){toast(e.message,'err');}
+}
+
+// ─── REPORTS ─────────────────────────────────────────────────────────────────
+async function lr(){
+  const f=document.getElementById('rf').value;
+  try{
+    const d=await api('/reports');
+    let reps=d.reports||[];
+    if(f==='bug')reps=reps.filter(r=>r.type==='bug');
+    if(f==='problem')reps=reps.filter(r=>r.type==='problem');
+    if(f==='open')reps=reps.filter(r=>!r.resolved);
+    if(!reps.length){document.getElementById('rl').innerHTML='<div class="load">No reports 🎉</div>';return;}
+    document.getElementById('rl').innerHTML=reps.map(r=>`
+      <div class="rcard ${r.resolved?'done':''}">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px">
+          <span class="badge ${r.type==='bug'?'r':'a'}">${r.type==='bug'?'🐛 Bug':'📝 Problem'}</span>
+          ${r.resolved?'<span class="badge g">Resolved</span>':'<span class="badge gr">Open</span>'}
+          <span class="mono" style="color:var(--text3)">${r.username||'anonymous'}</span>
+          ${r.context?`<span class="mono" style="color:var(--text3)">ctx: ${r.context}</span>`:''}
+          <span class="mono" style="color:var(--text3);margin-left:auto">${(r.createdAt||'').split('T')[0]}</span>
+        </div>
+        <div class="rmsg">${(r.message||'').replace(/</g,'&lt;')}</div>
+        ${!r.resolved?`<button class="btn bg_" style="margin-top:6px" onclick="resolveRep('${r.id}')">✓ Resolve</button>`:''}
+      </div>`).join('');
+  }catch(e){document.getElementById('rl').innerHTML=`<div class="load" style="color:var(--red)">${e.message}</div>`;}
+}
+
+async function resolveRep(id){
+  try{await api(`/reports/${id}/resolve`,'POST');toast('Resolved ✓');lr();ls();}catch(e){toast(e.message,'err');}
+}
+
+// ─── LIBRARY ─────────────────────────────────────────────────────────────────
+async function ll(){
+  const f=document.getElementById('lf').value;
+  try{
+    const d=await api('/problems');
+    let probs=d.problems||[];
+    document.getElementById('lt').innerHTML=`
+    <table><thead><tr><th>Title</th><th>Level</th><th>Category</th><th>Source</th><th>Actions</th></tr></thead>
+    <tbody>${probs.map(p=>`<tr>
+      <td><b>${p.title}</b></td>
+      <td><span class="badge ${p.difficulty==='post_bac'?'p':'gr'}">${p.difficulty==='post_bac'?'Post-Bac':'Pre-Bac'}</span></td>
+      <td class="mono">${p.category||'—'}</td>
+      <td>${p.approved?'<span class="badge g">User</span>':'<span class="badge gr">Built-in</span>'}</td>
+      <td>${p.approved?`<button class="btn br" onclick="probAct('reject','${p.id}','${p.title.replace(/'/g,'')}')">Delete</button>`:'—'}</td>
+    </tr>`).join('')}</tbody></table>
+    <div style="font-size:11px;color:var(--text3);margin-top:6px">${probs.length} problems total</div>`;
+  }catch(e){document.getElementById('lt').innerHTML=`<div class="load" style="color:var(--red)">${e.message}</div>`;}
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+const LOAD={users:lu,proposals:lp,reports:lr,library:ll};
+function sw(n,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('[id^="t"]:not(.tabs):not(.top)').forEach(t=>t.style.display='none');
+  el.classList.add('active');
+  const map={users:'tu',proposals:'tp',reports:'tr',library:'tl'};
+  document.getElementById(map[n]).style.display='';
+  LOAD[n]?.();
+}
+
+ls(); lu();
+</script>
+</body>
+</html>

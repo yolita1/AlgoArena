@@ -1,0 +1,5 @@
+# nixpacks.toml
+# nodejs_20 + npm are auto-detected by Nixpacks from package.json
+# We only need to add the languages used to execute player code
+[phases.setup]
+nixPkgs = ["nodejs_20", "gcc", "python311", "ocaml"]

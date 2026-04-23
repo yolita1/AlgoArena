@@ -1,0 +1,54 @@
+{
+  "id": "fib_nth",
+  "title": "N-th Fibonacci Number",
+  "description": "Compute the N-th Fibonacci number modulo 10⁹+7. F(1)=1, F(2)=1, F(n)=F(n-1)+F(n-2). In Optimization mode, a naive recursive O(2^n) solution scores worse than an iterative O(n) one.",
+  "inputSpec": "A single integer N.",
+  "outputSpec": "F(N) modulo 10⁹+7.",
+  "constraints": "1 ≤ N ≤ 1000000",
+  "exampleInput": "10",
+  "exampleOutput": "55",
+  "difficulty": "pre_bac",
+  "category": "dynamic_programming",
+  "tests": [
+    {
+      "input": "10",
+      "output": "55"
+    },
+    {
+      "input": "1",
+      "output": "1"
+    },
+    {
+      "input": "2",
+      "output": "1",
+      "hidden": true
+    },
+    {
+      "input": "20",
+      "output": "6765",
+      "hidden": true
+    },
+    {
+      "input": "50",
+      "output": "586268941",
+      "hidden": true
+    }
+  ],
+  "botCodes": [
+    {
+      "language": "python",
+      "submitDelay": 20,
+      "code": "n=int(input())\nMOD=10**9+7\na,b=1,1\nfor _ in range(n-2):a,b=b,(a+b)%MOD\nprint(a if n==1 else b)"
+    },
+    {
+      "language": "c",
+      "submitDelay": 40,
+      "code": "#include<stdio.h>\n#define MOD 1000000007\nlong long a=1,b=1;\nint main(){int n;scanf(\"%d\",&n);if(n<=2){printf(\"%lld\\n\",1LL);return 0;}for(int i=2;i<n;i++){long long c=(a+b)%MOD;a=b;b=c;}printf(\"%lld\\n\",b);}"
+    },
+    {
+      "language": "ocaml",
+      "submitDelay": 80,
+      "code": "let()=let n=Scanf.scanf\" %d\" Fun.id in let md=1000000007 in if n<=2 then Printf.printf\"1\\n\" else begin let a=ref 1 and b=ref 1 in for _=2 to n-1 do let c=(!a + !b) mod md in a:= !b;b:=c done;Printf.printf\"%d\\n\" !b end"
+    }
+  ]
+}

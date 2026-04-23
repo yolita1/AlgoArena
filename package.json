@@ -1,0 +1,13 @@
+{
+  "name": "algoarena",
+  "version": "1.0.0",
+  "description": "AlgoArena — Competitive coding platform",
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend && npm run build --prefix backend",
+    "start": "node backend/dist/index.js",
+    "dev": "./start.sh"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
